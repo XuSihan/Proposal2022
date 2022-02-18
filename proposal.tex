@@ -1,0 +1,227 @@
+\documentclass[a4paper,zihao=-4]{article}
+\usepackage[UTF8,punct,linespread=1.56]{ctex}
+% \documentclass[a4paper,cs4size,UTF8,punct,linespread=1.56]{ctexart}
+\pagestyle{empty} % 第二页以后页码空白
+\usepackage[a4paper, left = 3.2cm, right = 3.2cm, top = 2.54cm, bottom = 2.54cm]{geometry}
+\usepackage{xcolor}
+% \usepackage[citebordercolor = white]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{times}
+\usepackage[subrefformat=parens,labelformat=parens]{subfig} %
+\usepackage{booktabs} % for \toprule \midrule \bottomrule \cmidrule
+\usepackage{cleveref}
+\crefformat{table}{表~#2#1#3}
+\crefformat{figure}{图~#2#1#3}
+\crefformat{equation}{式~（#2#1#3）}
+\usepackage{enumitem}
+% \setenumerate[1]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
+\setlist[enumerate]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
+% \setitemize[1]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
+\setlist[itemize]{itemsep = 0pt, parsep = 0pt, topsep = 2bp}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \usepackage{minted}   % For syntax highlighting
+% \usemintedstyle{friendly}
+\usepackage{setspace} 
+\usepackage{caption}
+\DeclareCaptionFont{capfont}{\kaishu\zihao{-4}\selectfont} % Caption font
+\DeclareCaptionFont{subfont}{\kaishu\zihao{5}\selectfont} % Sub-caption font
+\captionsetup{font = capfont}
+\captionsetup[subfigure]{font = subfont}
+\captionsetup[figure]{labelsep=space} % 空格 space；点 period；冒号 colon
+\captionsetup[table]{labelsep=space}  % 空格 space；点 period；冒号 colon
+\usepackage[square,numbers,sort&compress]{natbib}   % For Reference
+\newcommand{\citess}[1]{\textsuperscript{\cite{#1}}}
+\setlength{\bibsep}{1pt plus 0.3ex}
+\usepackage{titlesec}
+%\titleformat{\subsubsection}[block]{\hspace{3em}}{\thesubsubsection}{1em}{}
+\usepackage{insfc}
+\usepackage{enumitem}
+\usepackage{verbatim}
+%\usepackage{titlesec}
+
+%\titleformat{\subsection}[block]{\indent \bfseries}{\arabic{section}.\arabic{subsection}}{1em}{}[]
+\titleformat{\subsubsection}[block]{\hspace{2em}\normalsize\bfseries}{(\arabic{subsubsection})}{0.5em}{\vspace{-0.5em}}[]
+\titlespacing*{\subsubsection}
+{0pt}{1.5ex plus 0.7ex minus .2ex}{1.5ex plus .2ex}
+
+\graphicspath{{images/}}   % 设置图片所存放的目录
+
+\begin{document}
+
+%\kaishu
+
+% Decrease space above and below equations
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+
+%%%%%%%%% TITLE %%%%%%%%%
+% \title{报告正文 \vspace{-3.4ex}}
+% \title{报告正文}
+% \maketitle
+\begin{center}
+	{\kaishu \zihao{3} \textbf{报告正文} \vspace{-3ex}}
+\end{center}  
+
+\thispagestyle{empty} 　　　% 首页页码空白
+
+%%%%%%%%% Your Content %%%%%%%%%
+{\kaishu \zihao{4}参照以下提纲撰写，要求内容翔实、清晰，层次分明，标题突出。}\alert{请勿删除或改动下述提纲标题及括号中的文字。\vspace{9bp}}
+
+\NsfcChapter{（一）立项依据与研究内容}{（建议8000字以内）：}
+
+\NsfcSection{1}{项目的立项依据}{（研究意义、国内外研究现状及发展动态分析，需结合科学研究发展趋势来论述科学意义；或结合国民经济和社会发展中迫切需要解决的关键科技问题来论述其应用前景。附主要参考文献目录）；}
+
+\input{ch1_background.tex}
+
+\NsfcSection{2}{项目的研究内容、研究目标，以及拟解决的关键科学问题}{（此部分为重
+点阐述内容）；}
+
+\input{ch2_contents.tex}
+
+
+\NsfcSection{3}{拟采取的研究方案及可行性分析}{（包括研究方法、技术路线、实验手段、关键技术等说明）；}
+
+\input{ch3_solution.tex}
+
+\NsfcSection{4}{本项目的特色与创新之处；}{}
+
+\input{ch4_creativity.tex}
+
+\NsfcSection{5}{年度研究计划及预期研究结果}{（包括拟组织的重要学术交流活动、国际合作与交流计划等）。}
+
+\input{ch5_plan.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NsfcChapter{（二）研究基础与工作条件}{}
+
+
+\NsfcSection{1}{研究基础}{（与本项目相关的研究工作积累和已取得的研究工作成绩）；}
+\iffalse
+项目申请人蔡祥睿正在参与研究一项国家自然科学基金重点项目：{\kaishu{融合地理空间
+的人物行为与事件演化（U1936206），2020年1月1日-2023年12月31日，项目负责人：袁晓
+洁}}。该项目旨在地理空间数据和互联网数据，研究人物表示、群体识别、重大事件分析和
+预测等问题，其中人物表示学习、融合时空特征的时间预测与本项目的患者表示学习、可解
+释预测模型等研究问题相关，可为本项目提供研究思路。此外，该项目的实施经验可作为本
+项目的参考，为本项目的顺利开展和完成提供帮助。
+\fi
+
+申请人蔡祥睿自攻读博士学位以来，{\kaishu 在国内外重要会议上发表学术论文15篇，其
+中CCF A类会议4篇，CCF B类会议1篇}。此外，申请人在新加坡国立大学联合培养期间，曾
+参与GEMINI（GEneralizable Medical Information aNalysis and Integration
+Platform~\footnote{https://www.comp.nus.edu.sg/~dbsystem/gemini/}）的研究与开
+发，与新加坡国立大学医院（NUH）、新加坡国立大学医学组织（NUH），对电子医疗记录数
+据分析和相关系统研发都有较丰富的积累。下面就申请人已发表、已投稿的研究工作和数据
+集积累分别介绍与本项目相关的研究基础。
+
+\subsection*{(1) 已发表研究工作}
+
+针对医疗特征（概念）的表示学习，我们提出不同医疗特征具有不同的时间作用域范围，同
+现有方法相比，我们的工作放宽了医疗特征的时间上下文范围，并在不同的时间段学习医疗
+特征的影响力权重。实验表明，在考虑医疗特征的上述特点后，我们的方法能学到更好的特
+征表示。该研究成果2018年发表于{\kaishu CCF推荐A类会议IJCAI}上。该论文虽然是针
+对医疗特征表示的研究，但能够作为电子医疗记录输入的初始化向量，而且也为表现型表示
+学习提供了思路，可作为本项目的研究基础和重要参考。
+
+针对电子医疗记录缺失值插补的问题，我们在2018年最早提出将插补问题看作数据生成问
+题，并首先利用GAN（Generative Adversarial Network）来实现缺失值的生成，该研究成
+果于2018年发表于{\kaishu CCF推荐A类会议NeurIPS}。随后，鉴于原始GAN在本问题上训
+练不稳定和效率低，我们又结合AutoEncoder和GAN提出端到端的缺失值插补方法，实现一次
+训练，即可完成数据插补任务，该成果于2019年发表于{\kaishu CCF推荐A类会议
+IJCAI}。基于GAN的研究工作为时序数据插补领域引进了新的生成式解决思路，这两个工作
+可作为本项目电子医疗记录自动插补的研究基础，但它们没有考虑医疗偏差，也正是本项目
+需要创新之处。
+
+针对罕见单词的表示问题，我们提出了“单词-子单词”层次表示模型，在子单词表示学习的
+基础上，组合转换得到单词表示的方法，并首次研究子单词向量维度对单词表示的影响，该
+研究成果发表于2019年发表于{\kaishu CCF推荐B类会议DASFAA}，单词拆分本质上思路和本
+项目的患者表示拆分为表现型向量是一致的，虽然该研究工作与本项目不直接相关，但其研
+究思路可作为本项目的借鉴。
+
+\subsection*{(2) 已投稿研究工作}
+
+针对融合医学偏差的EMR插补问题，我们提出了基于缺失标记矩阵的注意力机制，并将缺失
+标记矩阵的信息传入针对观察到的数据所建的模型中，实验证明，在多个电子医疗记录上，
+该方法明显优于现有模型。该工作已投稿于{\kaishu CCF推荐A类会议IJCAI}，并已于2019
+年11月{\kaishu 申请国家发明专利}（电子医疗记录数据的缺失值填充方法，
+201911210250.7），该工作可作为本项目针对EMR插补问题构建对偶模型的直接研究基础。
+
+针对医学领域标记样本较少的问题，我们已经在眼底影像数据上开展过研究，通过领域自适
+应的方法，可以是模型学习到泛化性更好的数据表示，不仅在未标注的数据集上取得较好效
+果，也能提高标注数据集的分类效果，该工作已投稿{\kaishu SCI一区期刊IEEE
+Transaction on Medical Imaging}。该研究的成功表明，本项目在队列识别中所面临的弱
+监督学习可借鉴领域自适应的思想。
+
+\subsection*{(3) 项目经验和数据集积累}
+
+申请人在新加坡国立大学联合培养期间，曾参与GEMINI（GEneralizable Medical
+Information aNalysis and Integration
+Platform~\footnote{https://www.comp.nus.edu.sg/~dbsystem/gemini/}）的研究与开
+发，该项目旨在构建通用的医疗数据集成和分析平台，{\kaishu 申请人在项目中负责研
+发医学概念嵌入预处理模块，参与工作空间和数据集管理开发，实现ICU死亡预测、糖尿病
+进展建模和X-Ray影像分析等临床应用模块}。申请人积累了大量电子医疗记录分析的经验，
+也发现电子医疗记录分析存在巨大的挑战，即本申请书提出的挑战和研究内容。此外，
+{\kaishu 申请人积累了多个研究数据集，如MIMIC-III, ADNI, Parkinson等}。此外，
+{\kaishu 申请人参与“南开大学-基准联合医学研究中心”建设}，已积累来自广州15家医
+院的肺癌患者的电子医疗记录；通过和北京大学医疗健康大数据国家研究院合作，积累DKD
+慢性肾病患者队列数据，包含约3000个患者。这些项目经验和数据积累是本项目重要的研究
+基础。
+
+基于上述工作，申请人有信心达到本项目的研究目标，并取得高水平研究成果。
+
+\NsfcSection{2}{工作条件}{（包括已具备的实验条件，尚缺少的实验条件和拟解决的途径，包括利用国家实验室、国家重点实验室和部门重点实验室等研究基地的计划与落实情况）；}
+
+项目依托南开大学数据库与信息系统实验室，本实验室通过前期研究课题的积累，已经建有
+大数据计算集群，拥有10余个GPU计算节点、服务器20余台和微机100余台，其中包含IBM、
+DELL等品牌高性能服务器，并安装了较齐全的软件系统以及开发工具，添置了比较齐备的网
+络设备，配置了Hadoop和Spark云计算平台，该平台以万兆带宽连接到学校的数据中心，通
+过校园网与Internet网连接，其强大的计算能力和I/O能力为本项目提供了测试平台和非常
+有利的条件。它可作为我们开展研究工作的场所，所以完成本项目研究的实验条件已基本具
+备。实验室每周举行组会，探讨学科前沿科学问题，进行头脑风暴，激发研究热情和创新
+点。实验室每两周举行一次大组会，总结当前工作，制定新的规划，保证研究方向和技术路
+线正确。实验室积极严谨的科研氛围是保证本项目实施的重要因素。
+
+申请人参与建设“南开大学-基准联合医学研究中心”，该平台由南开大学计算机学院和广州
+基准医疗有限责任公司联合共建，旨在面向多模态医学数据，利用人工智能技术实现高发癌
+症的早诊早筛，广州基准公司提供数据和生物信息学专家支持，目前申请人所带领的团队已
+在肺癌筛查方面取得了一定的突破。在该平台的支持下，申请人及研究团队已与天津市肿瘤
+医院肺癌专科建立合作。此外，申请人与北京大学医疗健康大数据国家研究院张路霞教授团
+队合作研究慢性肾病患者病情进展预测。这些医疗机构和单位可为本项目提供数据支持和医
+学专家指导，保证本项目的顺利完成。
+
+综上所述，本项目的软硬件条件都已具备，尚无缺少的实验条件。
+
+\NsfcSection{3}{正在承担的与本项目相关的科研项目情况}{（申请人正在承担的与本项目相关的科研项目情况，包括国家自然科学基金的项目和国家其他科技计划项目，要注明项目的资助机构、项目类别、批准号、项目名称、获资助金额、起止年月、与本项目的关系及负责的内容等）；}
+
+无
+
+\NsfcSection{4}{完成国家自然科学基金项目情况}{（对申请人负责的前一个已资助期满的科学基金项目（项目名称及批准号）完成情况、后续研究进展及与本申请项目的关系加以详细说明。另附该项目的研究工作总结摘要（限500字）和相关成果详细目录）。}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+无
+
+\NsfcChapter{（三）其他需要说明的问题}{}
+
+\NsfcSection{1}{}{申请人同年申请不同类型的国家自然科学基金项目情况（列明同年申请的其他项目的项目类型、项目名称信息，并说明与本项目之间的区别与联系）。}
+
+无
+
+\NsfcSection{2}{}{具有高级专业技术职务（职称）的申请人是否存在同年申请或者参与申请国家自然科学基金项目的单位不一致的情况；如存在上述情况，列明所涉及人员的姓名，申请或参与申请的其他项目的项目类型、项目名称、单位名称、上述人员在该项目中是申请人还是参与者，并说明单位不一致原因。}
+
+无
+
+\NsfcSection{3}{}{具有高级专业技术职务（职称）的申请人是否存在与正在承担的国家自然科学基金项目的单位不一致的情况；如存在上述情况，列明所涉及人员的姓名，正在承担项目的批准号、项目类型、项目名称、单位名称、起止年月，并说明单位不一致原因。}
+
+无
+
+\NsfcSection{4}{}{其他。}
+
+无
+
+
+\end{document}
