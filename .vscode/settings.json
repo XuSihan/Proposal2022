@@ -1,0 +1,3 @@
+{
+    "latex-workshop.latex.recipe.default": "xelatex ➞ bibtex ➞ xelatex × 2"
+}
