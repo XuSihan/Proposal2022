@@ -21,7 +21,7 @@
 K.Pei等人~\citess{Pei2019DeepXplore}首次提出了深度学习系统的第一个覆盖标准。他们强调了神经元激活值对于捕捉深度神经网络(DNN) 内部状态的重要性。如果神经元的值高于预定义的阈值，则认为其被激活。神经元覆盖
 Sun等人~\citess{Sun2018Testing}提出将传统的 MC/DC 覆盖标准应用于DNN，通过结构覆盖率指标的指导用梯度搜索的方法生成新的测试样例集。
 率（NC）被定义为测试激活的独特神经元的覆盖率。
-Ma等人~\citess{Ma2018DeepGauge}为神经网络模型设计了一套多粒度测试覆盖率，分为神经元粒度和区间粒度。具体来说，他们提出了 k区间覆盖率(KMNC)，将每个神经元的输出范围基于训练集的上下界平均划分为 k个部分，并计算测试数据集覆盖的比例。他们还提出了神经元边界覆盖指标（NBC）和强神经元激活覆盖指标（SNAC），它们着重考量了测试样本神经元激活值超过训练集边界的比率。此外，他们还设计了神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率~\citess{Ma2019DeepCT}。
+Ma等人~\citess{ma2018deepgauge}为神经网络模型设计了一套多粒度测试覆盖率，分为神经元粒度和区间粒度。具体来说，他们提出了 k区间覆盖率(KMNC)，将每个神经元的输出范围基于训练集的上下界平均划分为 k个部分，并计算测试数据集覆盖的比例。他们还提出了神经元边界覆盖指标（NBC）和强神经元激活覆盖指标（SNAC），它们着重考量了测试样本神经元激活值超过训练集边界的比率。此外，他们还设计了神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率~\citess{ma2019deepct}。
 Wang 等人~\citess{Wang2019DeepPath}提出了一组针对DNN模型的路径驱动的测试度量指标DeepPath,能够更好地识别对抗性样本。
 Tian等人~\citess{Tian2019Testing}提出了白盒测试框架DeepInspect来自动检测基于DNN的图片分类器的混淆和偏差错误。
 Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基于抽象状态转换模型的RNN网络测试覆盖准则以及在此基础上的自动化测试框架DeepCruiser，能够根据覆盖范围反馈生成具有高覆盖率的测试用例,并有效地对基于RNN的自动语音识别系统进行缺陷检测。
@@ -41,9 +41,9 @@ Gerasimou等人~\citess{Gerasimou2020Importance}设计了通过衡量神经元�
 		\midrule
 	    DeepCover~\citess{Sun2018Testing} & 2018 & 符号-符号覆盖、距离-符号覆盖、符号-值覆盖、距离-值覆盖 \\
 		\midrule
-		DeepGauge~\citess{Ma2018DeepGauge} & 2018 & k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、Top-k神经元覆盖、Top-k 神经元模式 \\
+		DeepGauge~\citess{ma2018deepgauge} & 2018 & k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、Top-k神经元覆盖、Top-k 神经元模式 \\
 		\midrule
-	    DeepCT~\citess{Ma2019DeepCT} & 2018 & t-way 组合稀疏覆盖、t-way 组合密集覆盖、(p,t)-完整性覆盖 \\
+	    DeepCT~\citess{ma2019deepct} & 2018 & t-way 组合稀疏覆盖、t-way 组合密集覆盖、(p,t)-完整性覆盖 \\
 	    \midrule
 	    DeepPath~\citess{Wang2019DeepPath} & 2019 & l-SAP 覆盖、l-OAP 覆盖、l-FSP 覆盖 \\
 	    \midrule
@@ -109,7 +109,7 @@ Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与�
 测试数据生成
 
 现有对深度学习框架测试数据生成方面的黑盒测试方法研究主要有基于模糊测试、基于变异测试以及基于对抗的测试数据生成方法。
-模糊测试通过将种子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否会发生错误。Guo等人~\citess{Guo2018DLFuzz}提出了第一个差异模糊测试框架DLFuzz,用于指导DNN系统暴露异常行为。Odena等人~\citess{Odena2019TensorFuzz}将软件工程中的覆盖引导模糊测试概念引入神经网络领域,提出了TensorFuzz。Xie等人~\citess{Xie2019Coverage}提出了一个基于覆盖引导的自动化模糊测试框架DeepHunter，使用6种测试覆盖标准引导DNN模糊测试,实现了DNN模型在开发和部署两个阶段的缺陷检测。
+模糊测试通过将种子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否会发生错误。Guo等人~\citess{Guo2018DLFuzz}提出了第一个差异模糊测试框架DLFuzz,用于指导DNN系统暴露异常行为。Odena等人~\citess{Odena2019TensorFuzz}将软件工程中的覆盖引导模糊测试概念引入神经网络领域,提出了TensorFuzz。Xie等人~\citess{xie2019coverage}提出了一个基于覆盖引导的自动化模糊测试框架DeepHunter，使用6种测试覆盖标准引导DNN模糊测试,实现了DNN模型在开发和部署两个阶段的缺陷检测。
 Ma等人~\citess{Ma2018DeepMutation}借鉴传统软件变异测试的思想,将其应用到针对DNN系统的测试中,提出了DeepMutation，可以对测试用例集质量进行有效的定量分析,帮助开发人员提高测试数据能力。
 基于对抗的方法从机器学习和深度学习的角度入手,通过向原始样本添加微小扰动的方式产生对抗样本,使深度学习框架进行错误分类。其中的黑盒方法在生成对抗样本过程中只需要获得DNN网络在各种输入下对应的输出,而不需要关注其内部状态。Wicker等人提出一种特征引导的对抗性样本的鲁棒性测试方法~\citess{Wicker2018FeatureGuided},该方法借助尺度不变特征转换算法提取特征,通过双方博弈游戏的方式确定特征和操作像素点,并利用蒙特卡罗树搜索算法逐步探索博弈状态空间来生成对抗性样本。
 
@@ -135,7 +135,7 @@ Ma等人~\citess{Ma2018DeepMutation}借鉴传统软件变异测试的思想,将�
 		\midrule
 	    TensorFuzz~\citess{Odena2019TensorFuzz} & 模糊测试 & 数值误差、预测精度 & 激活向量 & MNIST \\
 	    \midrule
-	    DeepHunter~\citess{Xie2019Coverage} & 模糊测试 & 测试精度、测试覆盖率 & 神经元覆盖、k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、top-k 神经元覆盖 & MNIST、CIFAR-10、ImageNet \\
+	    DeepHunter~\citess{xie2019coverage} & 模糊测试 & 测试精度、测试覆盖率 & 神经元覆盖、k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、top-k 神经元覆盖 & MNIST、CIFAR-10、ImageNet \\
 	    \midrule
 	    Wicker等人~\citess{Wicker2018FeatureGuided} & 对抗样本生成 & 分类置信度 & 蒙特卡罗树搜索 & MNIST、CIFAR-10、Nexar、ImageNet \\
 	    
