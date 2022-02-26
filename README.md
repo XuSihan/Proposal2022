@@ -1,3 +1,49 @@
+# Settings
+
+## 目前申请书思路是DL testing，用dltesting这个branch
+
+  `git branch dltesting`
+
+git + latex的使用方式可以参考 https://stackoverflow.com/questions/6188780/git-latex-workflow
+
+## VSCode + latexworkshop
+
+本项目需要用xelatex和bibtex编译。可在VSCode的配置文件中加入如下内容：
+
+1. 在`latex-workshop.latex.recipes`中**添加**：
+```
+"latex-workshop.latex.recipes": [
+    {
+      "name": "xelatex",
+      "tools": [
+        "xelatex",
+        "bibtex",
+        "xelatex",
+        "xelatex"
+      ]
+    },
+]
+```
+
+2. 在`latex-workshop.latex.tools`中**添加**：
+
+```
+"latex-workshop.latex.tools": [
+  {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ],
+      "env": {}
+    },
+]
+```
+3. 为了简化编译，可在该项目的VSCode配置文件中加入：`"latex-workshop.latex.recipe.default": "xelatex"`，设置默认编译器是xelatex recipe。
+
 # iNSFC - 2017 年国家自然基金 LaTeX 模板
 
 magic command for vimtex: %!TEX program = xelatex
@@ -71,7 +117,7 @@ magic command for vimtex: %!TEX program = xelatex
 就个人审美而言，正文使用楷体比宋体更加美观。所以我们专门设置了楷体，如果用户想要将自己的内容设置为宋体，只需在 .tex 文件中将下列代码注释掉：
 
 ```latex
-% 导言区中部  
+% 导言区中部
 \DeclareCaptionFont{capfont}{\kaishu\zihao{-4}\selectfont} % Caption font
 \DeclareCaptionFont{subfont}{\kaishu\zihao{5}\selectfont} % Sub-caption font
 \captionsetup{font = capfont}
@@ -95,8 +141,8 @@ magic command for vimtex: %!TEX program = xelatex
 参考文献的行距、字体和大小可以在下列代码中修改
 
 ```latex
-\begin{spacing}{1.0}  
-  \zihao{5} \songti   
+\begin{spacing}{1.0}
+  \zihao{5} \songti
   \bibliographystyle{gbt7714-nsfc}
   \bibliography{ref}
 \end{spacing}
