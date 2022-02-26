@@ -1,9 +1,9 @@
 
 \subsection{国内外研究现状及发展动态分析}\label{relatedwork}
 
-根据与本项目的相关性，本节从覆盖充分性指标、神经网络测试数据生成、深度
-学习框架测试以及第三方组件漏洞挖掘四个方面介绍和分析国内外研究现状。
+% 根据与本项目的相关性，本节从覆盖充分性指标、神经网络测试数据生成、深度学习框架测试以及第三方组件漏洞挖掘四个方面介绍和分析国内外研究现状。
 
+根据与本项目的相关性，本节从覆盖充分性指标体系、深度学习框架白盒测试、深度学习框架黑盒测试三个方面介绍和分析国内外研究现状。
 
 %研究现状：
 %1.覆盖充分性指标体系--缺点，找不到失效原因，不可解释
@@ -12,243 +12,156 @@
 %4.第三方组件漏洞挖掘--缺点，单组建非跨组件，更缺少组件对人工智能模型各阶段的影响分析。
 
 
+
 \subsubsection{覆盖充分性指标研究}
-深度学习测试中的神经元覆盖率的思想启发自传统软件测试中
-的白盒测试。对于传统软件，如果遍历所有的分支语句结构就表明所有可能的输入都能够得
-到合理的输出。而对于深度神经网络，由于模型本身的高纬特征和连续性导致测试样本无法
-遍历所有可能的输入空间。因此，测试者期望测试数据集包含尽可能更多样化的测试样例，
-以更好的评估模型的准确性和鲁棒性。各种神经网络结构覆盖率指标从不同角度测试评估了
-测试数据集的多样性和完备性，因此对深度学习白盒测试具有重要意义。 K.Pei等人首次提
-出了深度学习系统的第一个覆盖标准。他们强调了神经元激活值对于捕捉深度神经网络
-(DNN) 内部状态的重要性。如果神经元的值高于预定义的阈值，则认为其被激活。神经元覆
-盖率（NC）被定义为测试激活的独特神经元的覆盖率。Ma等人为神经网络模型设计了一套多
-粒度测试覆盖率，分为神经元粒度和区间粒度。具体来说，他们提出了 k区间覆盖率
-(KMNC)，将每个神经元的输出范围基于训练集的上下界平均划分为 k 个部分，并计算测试
-数据集覆盖的比例。他们还提出了神经元边界覆盖指标（NBC）和强神经元激活覆盖指标
-（SNAC），它们着重考量了测试样本神经元激活值超过训练集边界的比率。此外，他们还设
-计了 神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率。Sun
-等人提出将传统的 MC/DC 覆盖标准应用于 DNN，通过结构覆盖率指标的指导用梯度搜索的
-方法生成新的测试样例集。
+深度学习测试中的神经元覆盖率的思想启发自传统软件测试中的白盒测试。
+对于传统软件，如果遍历所有的分支语句结构就表明所有可能的输入都能够得到合理的输出。
+而对于深度神经网络，由于模型本身的高纬特征和连续性导致测试样本无法遍历所有可能的输入空间。因此，测试者期望测试数据集包含尽可能更多样化的测试样例，以更好的评估模型的准确性和鲁棒性。各种神经网络结构覆盖率指标从不同角度测试评估了测试数据集的多样性和完备性，因此对深度学习白盒测试具有重要意义。 
+现有的覆盖充分性指标如\cref{tab:coverage_criteria}所示。
+K.Pei等人~\citess{Pei2019DeepXplore}首次提出了深度学习系统的第一个覆盖标准。他们强调了神经元激活值对于捕捉深度神经网络(DNN) 内部状态的重要性。如果神经元的值高于预定义的阈值，则认为其被激活。神经元覆盖
+Sun等人~\citess{Sun2018Testing}提出将传统的 MC/DC 覆盖标准应用于DNN，通过结构覆盖率指标的指导用梯度搜索的方法生成新的测试样例集。
+率（NC）被定义为测试激活的独特神经元的覆盖率。
+Ma等人~\citess{Ma2018DeepGauge}为神经网络模型设计了一套多粒度测试覆盖率，分为神经元粒度和区间粒度。具体来说，他们提出了 k区间覆盖率(KMNC)，将每个神经元的输出范围基于训练集的上下界平均划分为 k个部分，并计算测试数据集覆盖的比例。他们还提出了神经元边界覆盖指标（NBC）和强神经元激活覆盖指标（SNAC），它们着重考量了测试样本神经元激活值超过训练集边界的比率。此外，他们还设计了神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率~\citess{Ma2019DeepCT}。
+Wang 等人~\citess{Wang2019DeepPath}提出了一组针对DNN模型的路径驱动的测试度量指标DeepPath,能够更好地识别对抗性样本。
+Tian等人~\citess{Tian2019Testing}提出了白盒测试框架DeepInspect来自动检测基于DNN的图片分类器的混淆和偏差错误。
+Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基于抽象状态转换模型的RNN网络测试覆盖准则以及在此基础上的自动化测试框架DeepCruiser，能够根据覆盖范围反馈生成具有高覆盖率的测试用例,并有效地对基于RNN的自动语音识别系统进行缺陷检测。
+Kim等人~\citess{Kim2019Guiding}基于模型在测试样本下的激活值和训练集中的激活值之间的距离，提出了一个名为惊喜充分性的测试覆盖标准SADL。
+Gerasimou等人~\citess{Gerasimou2020Importance}设计了通过衡量神经元对分类结果的影响比例提出了重要性驱动覆盖标准IDC。
 
-\begin{table}
-    \renewcommand\arraystretch{1.5}
-    \begin{small}
-        \caption{EMR表示学习相关研究工作}
-        \label{tab:representation}
-        \begin{center}
-            \begin{tabular}[c]{cll}
-                \toprule
-                \multicolumn{1}{c}{\textbf{序号}} &
-                \multicolumn{1}{c}{\textbf{主要思想}} &
-                \multicolumn{1}{c}{\textbf{文献号}}\\
-                \midrule
-                1 & 仅基于EMR数据集训练医疗特征表示 & \cite{tran2015learning}
-                \cite{miotto2016deep} \cite{choi2016medical}
-                 \cite{cai2018medical} \cite{peng2019temporal}
-                 \cite{bai2019medical}\\
-                2 & 结合EMR数据集和医疗领域知识库 & \cite{choi2017gram}
-                \cite{choi2018mime} \cite{ma2018kame} \cite{song2019medical}\\
-                3 & 基于异构医疗数据学习医疗特征表示 & \cite{choi2016learning}
-                \cite{bai2017joint} \cite{ma2018drug}\\
-                4 & 学习层次化的EMR数据表示 & \cite{choi2016multi}
-                \cite{choi2020learning}\\
-                \bottomrule
-            \end{tabular}
-        \end{center}
-    \end{small}
+\begin{table}[t]
+	\small
+	\centering
+	\caption{现有覆盖充分性指标总结}
+	\label{tab:coverage_criteria}
+	\begin{tabular}{c|c|c}
+		\toprule
+		文献来源 & 发表年份 & 覆盖充分性指标 \\
+		\midrule
+		DeepXplore~\citess{Pei2019DeepXplore} & 2017 & 神经元覆盖 \\
+		\midrule
+	    DeepCover~\citess{Sun2018Testing} & 2018 & 符号-符号覆盖、距离-符号覆盖、符号-值覆盖、距离-值覆盖 \\
+		\midrule
+		DeepGauge~\citess{Ma2018DeepGauge} & 2018 & k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、Top-k神经元覆盖、Top-k 神经元模式 \\
+		\midrule
+	    DeepCT~\citess{Ma2019DeepCT} & 2018 & t-way 组合稀疏覆盖、t-way 组合密集覆盖、(p,t)-完整性覆盖 \\
+	    \midrule
+	    DeepPath~\citess{Wang2019DeepPath} & 2019 & l-SAP 覆盖、l-OAP 覆盖、l-FSP 覆盖 \\
+	    \midrule
+	    DeepInspect~\citess{Tian2019Testing} & 2019 & 神经元激活概率向量距离、平均偏差等度量 \\
+	    \midrule
+	    DeepCruiser~\citess{Du2018DeepCruiser} & 2018 & 状态级别覆盖、转换级别覆盖 \\
+	    \midrule
+	    SADL~\citess{Kim2019Guiding} & 2019 & 意外覆盖 \\
+	    \midrule
+	    IDC~\citess{Gerasimou2020Importance} & 2019 & 重要性驱动覆盖 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
-{\kaishu{电子医疗记录中特征表示与表现型直接相关，是队列识别的重要研究问题之一，
-特征表示是表现型表示和队列识别的基础。现有工作主要聚焦于针对医疗特征的向量表示学
-习研究，缺少对高层次语义表示的研究，如表现型表示。本课题拟引入表现型向量字典，将
-患者表示为多个高层次表现型的组合，从而提升队列识别的准确率。}}
 
-\subsubsection{神经网络测试数据生成}
 
-与测试传统软件类似,在对 DNN 系统的测试中,使用足够的测试输入对系统的一般行为和各
-种边界条件下的行为进行充分的测试是必要的.我们将当前 DNN 系统测试输入生成的研究工
-作分为两类:第1类方法通常从软件工程的角度出发,将传统软件测试的思路迁移到DNN 模型
-的测试中,通过对给定的种子输入进行指定的变换,以最大化模型覆盖率为目标来生成测试输
-入,我们称这类方法为基于覆盖的测试输入生成方法;第 2 类则从机器学习和深度学习的角
-度入手,通过向原始样本添加微小扰动的方式产生对抗样本,使 DNN系统进行错误分类,我们
-称此类方法为基于对抗的测试输入生成方法,包括白盒方法与黑盒方法.基于覆盖的方法更关
-注生成的测试输入对 DNN 内部状态的影响,即测试输入是否对网络内部状态实现了测试覆盖
-.基于对抗的方法则更关注生成的测试输入是否能够使 DNN 产生错误输出。已有的基于覆盖
-的测试输入方法分为模糊测试、变异测试、符号执行与 Concolic 测试以及其他测试方法。
-模糊测试是一种常用的高效的软件测试方法,在各个测试领域被广泛采用.模糊测试通过将种
-子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否
-会发生错误.近些年来,一些研究者将模糊测试应用到 DNN 系统的测试用例生成中并取得了
-不错的效果。变异测试是一种评估用于测试用例集质量的重要手段.传统软件中的变异测试
-对代码进行变异,形成大量存在潜在问题的代码,称为变异体,产生这些变异体的不同变异规
-则与操作称为变异算子.测试用例集能够将多少变异体的错误暴露出来,可以作为测试用例集
-质量的衡量.严格来说,变异测试旨在评价测试数据的质量,并没有生成新的测试输入,但是对
-测试用例集质量的评价,对进一步地生成更加有效的测试输入具有重要的指导意义,因此我们
-将针对DNN 系统的变异测试归类为测试输入生成.在对DNN系统的测试中,如何衡量测试的充
-分性,以及如何生成更加高质量、更容易暴露错误的测试数据是一个研究重点.将变异测试应
-用到对人工智能系统的测试中,可以帮助衡量已有数据集对人工智能系统的测试覆盖程度.目
-前,已有研究在这个方面取得了进展。
+\subsubsection{深度学习框架白盒测试方法}
 
-\begin{table}
-    \renewcommand\arraystretch{1.5}
-    \begin{small}
-        \caption{针对EMR的表现型分析方法}
-        \label{tab:phenotype}
-        \begin{center}
-            \begin{tabular}[c]{cll}
-                \toprule
-                \multicolumn{1}{c}{\textbf{序号}} &
-                \multicolumn{1}{c}{\textbf{主要思想}} &
-                \multicolumn{1}{c}{\textbf{文献号}}\\
-                \midrule
-                1 & 以张量表示EMR数据集，进行张量分解 &
-                \cite{ho2014extracting} \cite{kim2017federated}
-                \cite{perros2018sustain} \cite{heano2018parallel} \cite{he2019distributed}
-                \cite{perros2019temporal} \\
-                2 & 将EMR建模成图，利用图算法分析表现型 & \cite{liu2015temporal}
-                \cite{wang2015graph} \cite{xu2017predicting} \\
-                3 & 基于深度学习模型，多为监督学习 & \cite{kale2015causal}
-                \cite{che2015deep}
-                \cite{beaulieu2016semi} \cite{cheng2016risk}
-                \cite{baytas2017patient} \cite{fu2019ddl} \cite{seymour2019derivation} \\
-               \bottomrule
-            \end{tabular}
-        \end{center}
-    \end{small}
+
+测试数据生成
+
+在对DNN系统的测试中,如何衡量测试的充分性,以及如何生成更加高质量、更容易暴露错误的测试数据是一个研究重点。
+现有对深度学习框架测试数据生成方面的白盒测试方法研究主要有基于符号执行、基于Concolic测试以及基于对抗的测试数据生成方法。
+Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与符号执行结合起来的软件测试技术。直接执行程序能够以更小的代价实现对特定输入的测试,而符号执行能够帮助以更少的执行次数发现错误,二者的结合能够发挥各自优势,以更高效率生成高质量的测试输入。Sun等人~\citess{Sun2018Concolic}将Concolic测试应用到DNN测试,提出了DeepConcolic，使用DeepXplore,DeepCover等诸多工作中提出的测试覆盖标准,将基于启发式逻辑的具体执行和符号执行相结合,证明了Concolic测试在深度神经网络测试上的有效性。Gopinath等人~\citess{Gopinath2018Symbolic}介绍了一种DNN轻量级符号执行的新技术DeepCheck,并将其应用于图像分类算法的测试,以解决DNN分析中的重要像素的识别以及创建1像素和2像素攻击等关键问题。
+基于对抗的DNN白盒测试方法指通过获得深度神经网络的内部状态,帮助生成对抗样本的一类方法。它利用了深度神
+经网络的内部信息,通常更容易生成高质量的对抗样本。Xiao等人~\citess{Xiao2018Spatially}提出了基于空间变换的图像对抗样本生成方法。He等人~\citess{He2018Decision}提出了一种针对区域分类的对抗样本生成方法OptMargin。
+
+
+
+测试数据优选
+
+
+测试框架方法
+
+
+
+\begin{table}[t]
+	\small
+	\centering
+	\caption{基于白盒测试的测试数据生成方法总结}
+	\label{tab:testingData_whiteBox}
+	\begin{tabular}{c|c|c|c|c}
+		\toprule
+		方法 & 类别 & 评价方法 & 指导目标 & 实验数据集 \\
+		\midrule
+		DeepConcolic~\citess{Sun2018Concolic} & Concolic测试 & 测试覆盖率、对抗性样本质量 & 符号-符号覆盖、神经元边界覆盖、神经元覆盖、Lipschitz 连续性 & MNIST、CIFAR-10 \\
+		\midrule
+		DeepCheck~\citess{Gopinath2018Symbolic} & 符号执行 & - & 像素重要性、像素变化个数 & MNIST \\
+		\midrule
+		Xiao等人~\citess{Xiao2018Spatially} & 对抗样本生成 & 人类对比评价 & 像素平移距离 & MNIST、CIFAR-10、ImageNet \\
+		\midrule
+		OptMargin~\citess{He2018Decision} & 对抗样本生成 & 分类准确率、失真度 & 像素值差异 & MNIST、CIFAR-10 \\
+		
+	    
+		\bottomrule
+	\end{tabular}
 \end{table}
 
-{\kaishu {现有基于深度学习的表现型分析模型绝大多数都是有监督模型，需要大量的标注
-样本，难以在真实医疗场景中应用。值得注意的是，部分研究工作直接基于医疗特征表示进
-行队列识别，如~\cite{glicksberg2018automated,bai2018ehr}，由于电子医疗记录的高维
-性，这类方法容易得到相似度较高的患者表示，不利于队列识别。}}
 
-\subsubsection{深度学习框架测试方法}
 
-因为患者就医时间没有规律，电子医疗记录呈现时间不规则性，直接利用现有模型分析电子
-医疗记录难以取得较好的结果，因此，数据插补对电子医疗记录的分析具有重要意义。关于
-电子医疗记录插补的相关工作总结如\cref{tab:imputation}所示。
+\subsubsection{深度学习框架黑盒测试方法}
 
-针对数据缺失值的插补很早就被关注，最传统的方式是利用均值、中位数进行插补，但缺乏
-对数据分布的考虑，效果较差。基于传统机器学习模型进行插补近年来也一直有研究者在关
-注，Beaulieu-Jones等人~\citess{beaulieu2018characterizing}在电子医疗记录上对比了
-12中传统机器学习模型方法，发现MICE~\citess{sterne2009multiple}很多情况下能取得较
-好的结果。值得注意的是，Zheng等人~\citess{zheng2017resolving}较早的提出了要考虑
-电子医疗记录中的医学偏差，并利用隐马尔可夫模型加入对偏差的考虑，但该工作只推断患
-者的状态，不能得到缺失值的插补。随着深度学习的发展，越来越多的研究工作开始利用深
-度学习模型处理电子医疗记录中的缺失值，Che等人~\citess{che2018recurrent}较早地利
-用RNN模型进行电子医疗记录插补，为考虑时间不规则性的影响，他们设计了时间衰减因
-子,Cao等人~\citess{cao2018brits}和Suo等人~\citess{suo2019recurrent}构建更复杂的
-RNN模型，进一步提升\cite{che2018recurrent}的效果。除了RNN模型，少量研究工作也以
-AutoEncoder为主干模型，实现电子医疗记录插补~\citess{beaulieu2017missing,costa2018missing}。\textbf{最近，本项目申请人首先提
-出将插补问题看成数据生成问题，并构建基于生成对抗网络（Generative Adversarial
-Network，GAN）的数据插补模型~\citess{luo2018multivariate,luo20192}，在该领域取得
-了国际领先结果}。此外，Yoon等人~\citess{yoon2018gain}同样利用GAN进行数据插补，
-Mattei等人~\citess{mattei2019miwae}首次在本问题上采用深度隐变量模型（Deep Latent
-Variable Model），但它们的数据假设局限于完全随机缺失（Missing Completely At
-Random）和非时序数据，无法应用于电子医疗记录。
+测试数据生成
 
-\begin{table}
-    \renewcommand\arraystretch{1.5}
-    \begin{small}
-        \caption{EMR插补相关研究工作}
-        \label{tab:imputation}
-        \begin{center}
-            \begin{tabular}[c]{cll}
-                \toprule
-                \multicolumn{1}{c}{\textbf{序号}} &
-                \multicolumn{1}{c}{\textbf{主要思想}} &
-                \multicolumn{1}{c}{\textbf{文献号}}\\
-                \midrule
-                1 & 传统机器学习模型 & \cite{zheng2017resolving}
-                \cite{beaulieu2018characterizing} \cite{yang2018time} \cite{xu2019estimating} \cite{sterne2009multiple}
-                \\
-                2 & 基于RNN的缺失值预测模型 &
-                \cite{che2018recurrent} \cite{suo2019recurrent}
-                ~\cite{cao2018brits} \\
-                3 & 基于AutoEncoder模型重构缺失值 & \cite{beaulieu2017missing}
-                \cite{costa2018missing} \\
-                4 & 基于生成模型进行缺失值生成 & \cite{luo2018multivariate}
-                \cite{luo20192} \cite{yoon2018gain} \cite{mattei2019miwae} \\
-               \bottomrule
-            \end{tabular}
-        \end{center}
-    \end{small}
+现有对深度学习框架测试数据生成方面的黑盒测试方法研究主要有基于模糊测试、基于变异测试以及基于对抗的测试数据生成方法。
+模糊测试通过将种子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否会发生错误。Guo等人~\citess{Guo2018DLFuzz}提出了第一个差异模糊测试框架DLFuzz,用于指导DNN系统暴露异常行为。Odena等人~\citess{Odena2019TensorFuzz}将软件工程中的覆盖引导模糊测试概念引入神经网络领域,提出了TensorFuzz。Xie等人~\citess{Xie2019Coverage}提出了一个基于覆盖引导的自动化模糊测试框架DeepHunter，使用6种测试覆盖标准引导DNN模糊测试,实现了DNN模型在开发和部署两个阶段的缺陷检测。
+Ma等人~\citess{Ma2018DeepMutation}借鉴传统软件变异测试的思想,将其应用到针对DNN系统的测试中,提出了DeepMutation，可以对测试用例集质量进行有效的定量分析,帮助开发人员提高测试数据能力。
+基于对抗的方法从机器学习和深度学习的角度入手,通过向原始样本添加微小扰动的方式产生对抗样本,使深度学习框架进行错误分类。其中的黑盒方法在生成对抗样本过程中只需要获得DNN网络在各种输入下对应的输出,而不需要关注其内部状态。Wicker等人提出一种特征引导的对抗性样本的鲁棒性测试方法~\citess{Wicker2018FeatureGuided},该方法借助尺度不变特征转换算法提取特征,通过双方博弈游戏的方式确定特征和操作像素点,并利用蒙特卡罗树搜索算法逐步探索博弈状态空间来生成对抗性样本。
+
+
+测试数据优选
+
+
+测试框架方法
+
+
+
+
+\begin{table}[t]
+	\small
+	\centering
+	\caption{基于黑盒测试的测试数据生成方法总结}
+	\label{tab:testingData_blackBox}
+	\begin{tabular}{c|c|c|c|c}
+		\toprule
+		方法 & 类别 & 评价方法 & 指导目标 & 实验数据集 \\
+		\midrule
+		DLFuzz~\citess{Guo2018DLFuzz} & 模糊测试 & 神经元覆盖率、生成效率、图片质量 & 神经元覆盖 & MNIST、ImageNet \\
+		\midrule
+	    TensorFuzz~\citess{Odena2019TensorFuzz} & 模糊测试 & 数值误差、预测精度 & 激活向量 & MNIST \\
+	    \midrule
+	    DeepHunter~\citess{Xie2019Coverage} & 模糊测试 & 测试精度、测试覆盖率 & 神经元覆盖、k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、top-k 神经元覆盖 & MNIST、CIFAR-10、ImageNet \\
+	    \midrule
+	    Wicker等人~\citess{Wicker2018FeatureGuided} & 对抗样本生成 & 分类置信度 & 蒙特卡罗树搜索 & MNIST、CIFAR-10、Nexar、ImageNet \\
+	    
+	    
+		\bottomrule
+	\end{tabular}
 \end{table}
 
-电子医疗记录中的偏差是医学领域中的常见问题，已经被许多医学研究证实：Pivovarovd等
-人~\citess{pivovarov2014identifying}利用特征出现的频率识别临床检测数据中的偏差，
-Phelen等人~\citess{phelan2017illustrating}举例说明了电子医疗记录中医学偏差产生的
-原因，Agniel等人~\citess{agniel2018biases}设计回顾性分析实验，证明了医学偏差在电
-子医疗记录中普遍存在，Vassy等人~\citess{vassy2018yield}利用可视化分析发现偏差。
-这些研究结果指出，医学偏差可以作为一种特征，有助于理解数据。
-
-{\kaishu{本项目拟将医学偏差作为患者分布的特征，通过将其引入电子医疗记录插补模
-型，实现隐式地进行细粒度患者划分，提高数据插补的准确性。目前已有研究可以佐证引入
-医学偏差能提高模型效果，但尚未有相关研究在基于深度学习的插补模型中引入医学偏差，
-本项目的研究正好补充该方向上的空白。}}
-
-\subsubsection{第三方组件漏洞检测}
-
-拥有良好的可解释性是机器学习模型实际应用的重要保证，这在医疗数据分析领域尤其重
-要。虽然目前越来越多的研究工作开始利用深度学习对电子医疗记录建模，但可解释性是深
-度学习的基础性难题，尚无非常完备的解决的方案。\cref{tab:interpretability}总结了
-电子医疗记录分析模型可解释性的研究。现有关于电子医疗记录分析的可解释性研究主要分
-为两类：1）将模型看作黑盒（black-box），待模型训练完以后再对分析结果进行解释
-（Post-hoc）；2）改进模型，使模型本身具有可解释性（Ante-hoc）。除了这两类模型方
-面的研究以外，也有一些工作研究可视化交互界面，建立人机互动的平台。
-
-\begin{table}
-    \renewcommand\arraystretch{1.5}
-    \begin{small}
-        \caption{EMR模型可解释性相关研究工作}
-        \label{tab:interpretability}
-        \begin{center}
-            \begin{tabular}[c]{cll}
-                \toprule
-                \multicolumn{1}{c}{\textbf{序号}} &
-                \multicolumn{1}{c}{\textbf{主要思想}} &
-                \multicolumn{1}{c}{\textbf{文献号}}\\
-                \midrule
-                1 & 将模型看作黑盒，对预测结果进行解释（Post-hoc） & \cite{panigutti2019explaining}
-                \cite{panigutti2020doctor} \\
-                2 & 修改模型结构，在预测同时提供可解释性（Ante-hoc） &
-                \cite{choi2016retain} \cite{ma2017dipole} \cite{bai2018interpretable}
-                \cite{gao2019camp} \cite{ma2019adacare} \\
-                3 & 利用可视化界面，便于理解 & \cite{kwon2018retainvis} \cite{jin2020carepre}
-                \cite{guo2020comparative} \\
-                \bottomrule
-            \end{tabular}
-        \end{center}
-    \end{small}
-\end{table}
-
-LIME~\citess{ribeiro2016should}最早提出将模型看作黑盒，并逐样本解释预测结果的方
-法；Panigutti等人~\citess{panigutti2019explaining}首先利用这种方法解释电子医疗记
-录分析模型，但该工作解释的模型缺少时间属性；随后，他们由针对考虑时间的模型应用相
-同的思想，提出了Doctor XAI~\citess{panigutti2020doctor}。这类方法的核心思想是利
-用给定样本周边的样本训练一个简单模型，以此对原模型预测的可靠性做出解释，方法无法
-给出原模型决策的原因。我们知道，对抗样本仅对原样本做了一点微小的改变，却能改变模
-型预测结果~\citess{su2019one}，因此Post-hoc的方法难以在医疗领域广泛应用。
-
-Ante-hoc方法主要是通过注意力机制对模型进行改造，使其具有可解释性。
-Choi~\citess{choi2016retain}于2016年提出RETAIN模型，将RNN隐含层的部分计算转移给
-注意力机制，虽然一定程度上提高了模型可解释性，但其预测准确率较低；Bai等人~\citess{bai2018interpretable}和Ma等人~\citess{ma2019adacare}分别提出了针对
-RETAIN模型的改进。Dipole模型~\citess{ma2017dipole}只能提供关于预测目标比较的重要
-就医记录（一次就医的所有记录），无法进一步细粒度分析。这些模型仅考虑了动态特征，
-忽略了静态特征的影响。Gao等人~\citess{gao2019camp}虽然同时考虑了静态特征和动态特
-征，但两组特征的重要性是分别计算的，没有得到全局下的特征权重，而且该模型无法总结
-出模型的行为准则，每个病历需要单独判别。
-
-在可视化医疗分析平台方面，Kwon等人~\citess{kwon2018retainvis}为RETAIN做了可视化
-界面；Jin等人~\citess{jin2020carepre}提出了交互式的智能医疗决策辅助平台CarePre；
-而Guo等人~\citess{guo2020comparative}聚焦于可视化电子医疗记录，为基于不同队列的
-对比研究提供辅助。这些可视化分析方法和平台，是本项目系统研发的重要参考。
 
 
 
-{\kaishu{现有可解释性研究无法对模型的预测行为进行全局分析，本项目拟提出可溯源的
-电子医疗记录分析模型，通过同时比较静态特征和动态特征对预测结果的贡献，可从整体上
-分析特征的变化对模型的影响。此外，本项目拟研发可视化界面呈现模型可解释分析结
-果。}}
+
+
+
+
+
+
+
+
+
+
+
+% 相关工作总结如\cref{tab:imputation}所示。
+%Beaulieu-Jones等人~\citess{beaulieu2018characterizing}在电子医疗记录上对比了12中传统机器学习模型方法，
+
+
 
 % 因为写 demo，我把参考文献放这里了，真写本子的时候，还是要放在国内外概况那边
 \begin{spacing}{1.3} % 行距
