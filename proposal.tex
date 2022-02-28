@@ -14,6 +14,7 @@
 \usepackage[subrefformat=parens,labelformat=parens]{subfig} %
 \usepackage{booktabs} % for \toprule \midrule \bottomrule \cmidrule
 \usepackage{cleveref}
+\usepackage{multirow}
 \crefformat{table}{表~#2#1#3}
 \crefformat{figure}{图~#2#1#3}
 \crefformat{equation}{式~（#2#1#3）}
@@ -26,6 +27,7 @@
 \setmainfont{Times New Roman}
 % \usepackage{minted}   % For syntax highlighting
 % \usemintedstyle{friendly}
+\newcommand{\CC}[1]{\cellcolor{gray!#1}}
 \usepackage{setspace} 
 \usepackage{caption}
 \DeclareCaptionFont{capfont}{\kaishu\zihao{-4}\selectfont} % Caption font
@@ -42,6 +44,7 @@
 \usepackage{insfc}
 \usepackage{enumitem}
 \usepackage{verbatim}
+\usepackage{colortbl}
 %\usepackage{titlesec}
 
 %\titleformat{\subsection}[block]{\indent \bfseries}{\arabic{section}.\arabic{subsection}}{1em}{}[]
@@ -101,62 +104,117 @@
 
 
 \NsfcSection{1}{研究基础}{（与本项目相关的研究工作积累和已取得的研究工作成绩）；}
+
+本项目申请人自攻读博士学位以来一直从事智能软件的质量评估和测试分析相关研究，主要
+研究方向是深度学习测试、智能软件工程、开源软件分析等，具有较强的理论基础，且掌握
+先进的实用技术。{在国内外重要会议期刊上发表SCI/EI收录学术论文10余篇，其中CCF-B类
+以上或SCI一区期刊7篇}。在新加坡国立大学联合培养期间，曾参与智能软件安全质量项目
+GEMS，\textbf{以{\underline{第一作者}在软件可靠性领域旗舰会议ISSRE 2017上发表论文并入选
+{Best Paper Session}}}，相关工作被开发成Eclipse插件，已有1500次下载。此外，为提
+高深度学习技术部署在自动驾驶领域的可靠性，提出{一种基于测试多样性的自动驾驶软件
+白盒测试方法}，研究成果\textbf{以\underline{第一作者}发表于智能交通系统领域顶刊IEEE T-ITS
+2021}，与国汽智控（北京）科技有限公司、中汽研（天津）汽车工程研究院有限公司紧密
+合作，相关研究成果运用于自动驾驶计算基础平台并取得良好反馈。
+
+\subsection{部分相关研究工作}
+
+在深度学习测试方向，从泛化能力的角度评估了现有神经网络覆盖测试指标对分布内
+（In-distribution）和分布外（Out-of-distribution）自然样本错误的检测能
+力。\cref{tab:co_fault}表示深度神经网络覆盖率与测试集错误检测能力的相关度系数，
+可以看出现有大部分指标与错误检测能力相关性较小，只有基于数据分布的测试指标LSC和
+DSC与错误检测能力呈弱相关性，且\textbf{相关性随着模型复杂度增加而减
+小}。\cref{tab:test_prioritization}为基于现有测试覆盖指标进行测试用例优选的平均
+错误检测率，可以看出大部分基于神经元结构覆盖的测试指标在检测分布内样本时作用较
+小，只有
+
+
+\begin{table}\footnotesize
+  \centering
+  \caption{深度神经网络覆盖率与测试集错误检测能力的相关度系数}
+  \label{tab:co_fault}
+  \begin{tabular}{c|cccc|cc|cc}
+    \toprule
+    \textbf{DNN Model} 
+     &  \textbf{NC} & \textbf{KMNC} & \textbf{TKNC} & \textbf{SNAC} & \textbf{NBC} & \textbf{IDC} & \textbf{LSC} & \textbf{DSC} \\
+    \midrule
+    \textbf{LeNet-1} & {NaN} & \CC{20}\textbf{ 0.173} & -0.041 & 0.023 & -0.021 & -0.028 & \CC{20} \textbf{0.321} & \CC{20} \textbf{0.360}  \\
+    \textbf{LeNet-4} & 0.061 & 0.077 & 0.042 & 0.006 & -0.000 & \CC{20}\textbf{ -0.101} & \CC{20}\textbf{ 0.318} &   \CC{20} \textbf{0.296} \\
+    \textbf{LeNet-5} & 0.030 & 0.016 & 0.063 & 0.065 & 0.066 & -0.039 & \CC{20} \textbf{0.249} & \CC{20} \textbf{0.351}  \\
+    \textbf{ResNet-20} & -0.079 & -0.011 & -0.074 & 0.015 & 0.010 & -0.051 & 0.073 & \CC{20} \textbf{0.096}    \\
+    \textbf{ResNet-50} & 0.071 & -0.021 & 0.020 & -0.047 & -0.050 & nan & \CC{20} \textbf{0.122} & \CC{20} \textbf{0.125}  \\
+    \textbf{MobileNet} & 0.057 & -0.023 & \CC{20} \textbf{0.085} & -0.072 & -0.058 & -0.017 & 0.032 & \CC{20} \textbf{0.115} \\
+    \textbf{VGG-13} & 0.021 & 0.077 & \CC{20} \textbf{0.099} & 0.035 & -0.054 & 0.043 & NaN & \CC{20} \textbf{0.142} \\
+    \textbf{VGG-16} & -0.013 & -0.014 & 0.042 & -0.074 & -0.061 & -0.039 & 0.063 & \CC{20} \textbf{0.120}  \\
+    \textbf{VGG-19} & \CC{20} \textbf{0.100} & \CC{20}\textbf{ 0.139} & \CC{20} \textbf{0.114} & -0.029 & 0.012 & 0.049 & 0.072 & \CC{20} \textbf{0.197} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \iffalse
-项目申请人蔡祥睿正在参与研究一项国家自然科学基金重点项目：{\kaishu{融合地理空间
-的人物行为与事件演化（U1936206），2020年1月1日-2023年12月31日，项目负责人：袁晓
-洁}}。该项目旨在地理空间数据和互联网数据，研究人物表示、群体识别、重大事件分析和
-预测等问题，其中人物表示学习、融合时空特征的时间预测与本项目的患者表示学习、可解
-释预测模型等研究问题相关，可为本项目提供研究思路。此外，该项目的实施经验可作为本
-项目的参考，为本项目的顺利开展和完成提供帮助。
+\begin{table}[t]\footnotesize
+  \centering
+  \caption{平均错误检测率}   
+  \label{tab:test_prioritization}
+  \footnotesize
+
+  %\begin{tabular}{p{0.68cm}<{\centering}|p{0.82cm}<{\centering}|p{0.4cm}<{\centering}p{0.4cm}<{\centering}p{0.4cm}<{\centering}p{0.4cm}<{\centering}p{0.4cm}<{\centering}p{0.4cm}<{\centering}p{0.4cm}<{\centering}p{0.4cm}<{\centering}|p{0.4cm}<{\centering}p{0.4cm}<{\centering}}
+  \begin{tabular}{cccccccccccc}
+      \toprule
+      \multirow{2}{*}{\textbf{数据集}} & \multirow{2}{*}{\textbf{模型}} & \multicolumn{8}{c}{\textbf{基于测试覆盖指标的测试优选方法}} &\multicolumn{2}{|c}{\textbf{对比方法}} \\\cline{3-12}\\[-1.8ex]
+      & & \textbf{NC} & \textbf{KMNC} & \textbf{TKNC} & \textbf{SNAC} & \textbf{NBC} & \textbf{IDC} & \textbf{LSA} & \textbf{DSA} & \textbf{SOCP} & \textbf{DG.} \\
+      \midrule
+      
+      \multirow{3}{*}{\textbf{MNIST}} & \textbf{LeNet-1} & 0.10 & 0.51 & 0.60 & 0.60 & 0.60 & 0.60 & 0.88 & \CC{20} \textbf{0.98} & 0.97 & 0.97 \\
+
+      & \textbf{LeNet-4} & 0.32 & 0.53 & 0.59 & 0.59 & 0.59 & 0.59 & 0.81 & \CC{20} \textbf{0.96} & 0.96 & 0.96 \\
+
+       & \textbf{LeNet-5} & 0.38 & 0.46 & 0.59 & 0.56 & 0.57 & 0.59 & 0.85 & \CC{20} \textbf{0.99} & 0.98 & 0.98 \\ 
+      \midrule 
+      \multirow{3}{*}{\textbf{CIFAR-10}}& \textbf{ResNet-20} & 0.49 & 0.50 & 0.50 & 0.50 & 0.50 & 0.50 & 0.68 & \CC{20} \textbf{0.86} & 0.81 & 0.81 \\
+
+      & \textbf{ResNet-50} & 0.42 & 0.51 & 0.51 & 0.51 & 0.51 & 0.50 & 0.73 & \CC{20} \textbf{0.89} & 0.84 & 0.84 \\
+
+       & \textbf{MobleNet} & 0.60 & 0.54 & 0.51 & 0.49 & 0.58 & 0.51 & 0.71 & \CC{20} \textbf{0.89} & 0.81 & 0.80 \\ 
+       \midrule 
+      \multirow{3}{*}{\textbf{CIFAR-100}}& \textbf{VGG-13} & 0.49 & 0.50 & 0.50 & 0.50 & 0.50 & 0.50 & 0.53 & \CC{20} \textbf{0.62} & 0.59 & 0.59 \\
+
+      & \textbf{VGG-16} & 0.48 & 0.50 & 0.50 & 0.50 & 0.50 & 0.50 & 0.58 & \CC{20} \textbf{0.86} & 0.61 & 0.62 \\
+
+       & \textbf{VGG-19} & 0.46 & 0.50 & 0.50 & 0.50 & 0.50 & 0.50 & 0.53 & \CC{20} \textbf{0.69} & 0.62 & 0.62 \\        
+      \bottomrule   
+    \end{tabular}
+\end{table}
 \fi
 
-申请人蔡祥睿自攻读博士学位以来，{\kaishu 在国内外重要会议上发表学术论文15篇，其
-中CCF A类会议4篇，CCF B类会议1篇}。此外，申请人在新加坡国立大学联合培养期间，曾
-参与GEMINI（GEneralizable Medical Information aNalysis and Integration
-Platform~\footnote{https://www.comp.nus.edu.sg/~dbsystem/gemini/}）的研究与开
-发，与新加坡国立大学医院（NUH）、新加坡国立大学医学组织（NUH），对电子医疗记录数
-据分析和相关系统研发都有较丰富的积累。下面就申请人已发表、已投稿的研究工作和数据
-集积累分别介绍与本项目相关的研究基础。
 
-\subsection*{(1) 已发表研究工作}
+作为任务和安全关键型任务，基于人工智能的自动驾驶系统可靠性对生命财产安全有重大意
+义，在评估现有的神经网络覆盖测试指标的基础上，首次探索覆盖测试在度量样本多样性、
+检测模型错误和异常样本上的能力，并在此基础上提出了一种面向基于人工智能的自动驾驶
+软件测试方法，该研究部分成果已发表于智能交通系统领域顶刊IEEE T-ITS上。团队与中汽
+研（天津）汽车工程研究院有限公司、国汽智控（北京）科技有限公司紧密合作，相关研究
+成果运用于自动驾驶计算基础平台并取得良好反馈。
+	
+针对函数抽取重构问题，申请人率先提出利用机器学习方法推荐重构方法，提高
+软件质量，该方法提取代码的结构和功能特征，并基于大规模开源数据训练模型，以较高的
+性能和准确度为用户推荐可重构代码片段。该工作发表于ISSRE 2017会议（CCF B类）论
+文，入选该会议Best Paper Session，相关工作被开发成Eclipse插件。针对函数名推荐问
+题，申请人提出以层次注意力模型对代码进行建模，取得了比传统方法更优的推荐准确率，
+相关工作发表于PEPM 2019会议。上述工作表明，申请人在软件可靠性和人工智能的交叉领
+域积累了丰富的研究经验，对机器学习、深度学习有较深入的了解，为本项目顺利实施奠定
+了基础。
 
-针对医疗特征（概念）的表示学习，我们提出不同医疗特征具有不同的时间作用域范围，同
-现有方法相比，我们的工作放宽了医疗特征的时间上下文范围，并在不同的时间段学习医疗
-特征的影响力权重。实验表明，在考虑医疗特征的上述特点后，我们的方法能学到更好的特
-征表示。该研究成果2018年发表于{\kaishu CCF推荐A类会议IJCAI}上。该论文虽然是针
-对医疗特征表示的研究，但能够作为电子医疗记录输入的初始化向量，而且也为表现型表示
-学习提供了思路，可作为本项目的研究基础和重要参考。
+测试用例的生成一直以来都是软件测试中的难点问题,生成测试用例的质量对漏洞检测的准
+确性和效率至关重要。申请人深入研究 Web 应用的访问控制模型，提出针对此类漏洞的测
+试用例生成方法，设计并实现原型系统 ACTCGenerator，运行在公开的 Web 应用上，实验
+结果表明该方法在保证一定覆盖率的同时，精简测试用例，减少了测试用例集的冗余度，提
+高了检测效率，具有重要的理论意义和应用价值。相关工作于 2017 年发表于《计算机学
+报》（CCF A 类中文期刊）。该工作是本项目的重要研究基础，本项目拟研究的测试输入优
+化算法也希望在保证测试覆盖率的同时，精简测试用例。
 
-针对电子医疗记录缺失值插补的问题，我们在2018年最早提出将插补问题看作数据生成问
-题，并首先利用GAN（Generative Adversarial Network）来实现缺失值的生成，该研究成
-果于2018年发表于{\kaishu CCF推荐A类会议NeurIPS}。随后，鉴于原始GAN在本问题上训
-练不稳定和效率低，我们又结合AutoEncoder和GAN提出端到端的缺失值插补方法，实现一次
-训练，即可完成数据插补任务，该成果于2019年发表于{\kaishu CCF推荐A类会议
-IJCAI}。基于GAN的研究工作为时序数据插补领域引进了新的生成式解决思路，这两个工作
-可作为本项目电子医疗记录自动插补的研究基础，但它们没有考虑医疗偏差，也正是本项目
-需要创新之处。
 
-针对罕见单词的表示问题，我们提出了“单词-子单词”层次表示模型，在子单词表示学习的
-基础上，组合转换得到单词表示的方法，并首次研究子单词向量维度对单词表示的影响，该
-研究成果发表于2019年发表于{\kaishu CCF推荐B类会议DASFAA}，单词拆分本质上思路和本
-项目的患者表示拆分为表现型向量是一致的，虽然该研究工作与本项目不直接相关，但其研
-究思路可作为本项目的借鉴。
 
-\subsection*{(2) 已投稿研究工作}
 
-针对融合医学偏差的EMR插补问题，我们提出了基于缺失标记矩阵的注意力机制，并将缺失
-标记矩阵的信息传入针对观察到的数据所建的模型中，实验证明，在多个电子医疗记录上，
-该方法明显优于现有模型。该工作已投稿于{\kaishu CCF推荐A类会议IJCAI}，并已于2019
-年11月{\kaishu 申请国家发明专利}（电子医疗记录数据的缺失值填充方法，
-201911210250.7），该工作可作为本项目针对EMR插补问题构建对偶模型的直接研究基础。
-
-针对医学领域标记样本较少的问题，我们已经在眼底影像数据上开展过研究，通过领域自适
-应的方法，可以是模型学习到泛化性更好的数据表示，不仅在未标注的数据集上取得较好效
-果，也能提高标注数据集的分类效果，该工作已投稿{\kaishu SCI一区期刊IEEE
-Transaction on Medical Imaging}。该研究的成功表明，本项目在队列识别中所面临的弱
-监督学习可借鉴领域自适应的思想。
-
-\subsection*{(3) 项目经验和数据集积累}
+\subsection*{(2) 项目经验和数据集积累}
 
 申请人在新加坡国立大学联合培养期间，曾参与GEMINI（GEneralizable Medical
 Information aNalysis and Integration
