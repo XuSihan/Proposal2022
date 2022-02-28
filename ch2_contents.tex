@@ -46,7 +46,7 @@ $\hat{y}^{(i)}$，通常是该输入属于各个类别的概率分布，除此�
         \begin{center}
             \includegraphics[width=0.8\textwidth]{ch2_2Btest.pdf}
         \end{center}
-        \caption{黑盒测试研究内容}
+        \caption{基于决策行为模拟的黑盒测试研究内容}
         \label{fig:ch2:2Btest}
     \end{small}
 \end{figure}
@@ -56,24 +56,25 @@ $\mathcal M^\prime$（如决策树）萃取黑盒模型$\mathcal M$的知识，�
 的预测行为；然后，在副本模型的基础上，本项目拟建立基于决策路径覆盖度的测试方法，
 通过覆盖度指标反映模型的决策机制和泛化能力。}
 
-\subsubsection{融合医学偏差的EMR自动插补}
+\subsubsection{基于层次语义理解的白盒测试}
+
 
 患者就医时间不规律，且不同医疗特征的记录频率也差别很大，导致电子医疗记录具有时间
 不规则性和稀疏性的特点，为电子医疗记录分析带来了新的挑战。本项目拟研究通用的电子
 医疗记录插补方法，对电子医疗记录进行预处理，使其在时间维度上更为规则，降低后续分
 析的模型复杂度。
 
-\begin{figure}
+\begin{figure}[htp]
     \begin{small}
         \begin{center}
-            \includegraphics[width=0.85\textwidth]{ch2imputation.pdf}
+            \includegraphics[width=0.9\textwidth]{ch2_WBtest.pdf}
         \end{center}
-        \caption{EMR插补研究内容}
-        \label{fig:ch2:imputation}
+        \caption{基于层次语义理解的白盒测试研究内容}
+        \label{fig:ch2:WBtest}
     \end{small}
 \end{figure}
 
-图~\ref{fig:ch2:imputation}举例说明了本项目电子医疗记录插补的研究内容。给定电子
+图~\ref{fig:ch2:WBtest}举例说明了本项目电子医疗记录插补的研究内容。给定电子
 医疗记录$\bm X$，若电子医疗记录一共有$d$个特征，$t$个时间点，则$\bm X \in
 \mathbb{R}^{d\times t}$。本项目拟构建机器学习模型推断$\bm X$中的部分缺失值，即图
 中\textit{NA}所在的位置，最终得到数值完整的电子医疗记录，如图中$\bm X_{ipt}$所
@@ -86,7 +87,7 @@ $\mathcal M^\prime$（如决策树）萃取黑盒模型$\mathcal M$的知识，�
 明~\citess{agniel2018biases}，\textbf{医学偏差不应被看作数据质量问题或者噪声，而
 是一种数据细分的信号}，如：肾衰竭的患者更可能在晚上10点到早上6点之间化验肌酐；重
 病患者做检查更加频繁等。记录产生的时间可以反映特征记录的过程，是模型理解医学偏差
-的重要途经。如图~\ref{fig:ch2:imputation}所示，本项目拟结合患者的缺失标记矩阵和
+的重要途经。如图~\ref{fig:ch2:WBtest}所示，本项目拟结合患者的缺失标记矩阵和
 就医时间学习特征缺失规律，在EMR插补模型中引入医学偏差。若时间$(k)$时患者第$i$个
 特征被记录下来，则图中缺失标记矩阵$\bm M$的对应取值$m_i^{(k)}=1$，若没观察到，则
 $m_i^{(k)}=0$，缺失矩阵和记录时间完整地反映了医疗特征的缺失规律，可用于理解医学
