@@ -2,7 +2,7 @@
 
 % 根据与本项目的相关性，本节从覆盖充分性指标、神经网络测试数据生成、深度学习框架测试以及第三方组件漏洞挖掘四个方面介绍和分析国内外研究现状。
 
-根据与本项目的相关性，本节从覆盖充分性指标体系、测试数据集生成方法、测试数据集优选方法、深度学习框架测试及可解释性四个方面介绍和分析国内外研究现状。
+根据与本项目的相关性，本节从覆盖充分性指标体系、测试数据集生成方法、测试数据集优选方法、深度学习测试可解释性四个方面介绍和分析国内外研究现状。
 
 %研究现状：
 %1.覆盖充分性指标体系--缺点，找不到失效原因，不可解释
@@ -13,49 +13,56 @@
 
 
 \subsubsection{覆盖充分性指标研究}
+
 深度学习测试中的神经元覆盖率的思想启发自传统软件测试中的白盒测试。
 对于传统软件，如果遍历所有的分支语句结构就表明所有可能的输入都能够得到合理的输出。
 而对于深度神经网络，由于模型本身的高纬特征和连续性导致测试样本无法遍历所有可能的输入空间。因此，测试者期望测试数据集包含尽可能更多样化的测试样例，以更好的评估模型的准确性和鲁棒性。各种神经网络结构覆盖率指标从不同角度测试评估了测试数据集的多样性和完备性，因此对深度学习白盒测试具有重要意义。 
-现有的覆盖充分性指标如表\cref{tab:coverage_criteria}所示。
-K.Pei等人~\citess{Pei2019DeepXplore}首次提出了深度学习系统的第一个覆盖标准。他们强调了神经元激活值对于捕捉深度神经网络(DNN) 内部状态的重要性。如果神经元的值高于预定义的阈值，则认为其被激活。神经元覆盖
-Sun等人~\citess{Sun2018Testing}提出将传统的 MC/DC 覆盖标准应用于DNN，通过结构覆盖率指标的指导用梯度搜索的方法生成新的测试样例集。
-率（NC）被定义为测试激活的独特神经元的覆盖率。
-Ma等人~\citess{ma2018deepgauge}为神经网络模型设计了一套多粒度测试覆盖率，分为神经元粒度和区间粒度。具体来说，他们提出了 k区间覆盖率(KMNC)，将每个神经元的输出范围基于训练集的上下界平均划分为 k个部分，并计算测试数据集覆盖的比例。他们还提出了神经元边界覆盖指标（NBC）和强神经元激活覆盖指标（SNAC），它们着重考量了测试样本神经元激活值超过训练集边界的比率。此外，他们还设计了神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率~\citess{ma2019deepct}。
-Wang 等人~\citess{Wang2019DeepPath}提出了一组针对DNN模型的路径驱动的测试度量指标DeepPath,能够更好地识别对抗性样本。
-Tian等人~\citess{Tian2019Testing}提出了白盒测试框架DeepInspect来自动检测基于DNN的图片分类器的混淆和偏差错误。
-Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基于抽象状态转换模型的RNN网络测试覆盖准则以及在此基础上的自动化测试框架DeepCruiser，能够根据覆盖范围反馈生成具有高覆盖率的测试用例,并有效地对基于RNN的自动语音识别系统进行缺陷检测。
-Kim等人~\citess{Kim2019Guiding}基于模型在测试样本下的激活值和训练集中的激活值之间的距离，提出了一个名为惊喜充分性的测试覆盖标准SADL。
+现有的覆盖充分性指标如\cref{tab:coverage_criteria}所示，现有的覆盖指标主要基于研究神经元的激活值、激活值边界、激活值分布、激活通路以及神经元的状态或者组合分布等思想。
+
+\begin{itemize}
+\item \textbf{基于单个神经元的激活值。}DeepXplore~\citess{Pei2019DeepXplore}、DeepGauge~\citess{ma2018deepgauge}、IDC~\citess{Gerasimou2020Importance}等工作主要围绕神经元覆盖率、K区间覆盖率、重要性驱动覆盖等测试覆盖指标。
+其中，K.Pei等人~\citess{Pei2019DeepXplore}首次提出了深度学习系统的第一个覆盖标准DeepXplore，强调了神经元激活值对于捕捉深度神经网络(DNN) 内部状态的重要性，如果神经元的值高于预定义的阈值，则认为其被激活，神经元覆盖率（NC）被定义为测试激活的独特神经元的覆盖率。
+Ma等人~\citess{ma2018deepgauge}为神经网络模型设计了一套多粒度测试覆盖率DeepGauge，分为神经元粒度和区间粒度，具体来说，他们提出了k区间覆盖率(KMNC)，将每个神经元的输出范围基于训练集的上下界平均划分为k个部分，并计算测试数据集覆盖的比例。
 Gerasimou等人~\citess{Gerasimou2020Importance}设计了通过衡量神经元对分类结果的影响比例提出了重要性驱动覆盖标准IDC。
+
+\item \textbf{基于神经元激活值边界。}Ma等人~\citess{ma2018deepgauge}还提出了神经元边界覆盖指标（NBC）和强神经元激活覆盖指标（SNAC），它们着重考量了测试样本神经元激活值超过训练集边界的比率。
+
+\item \textbf{基于神经元激活值分布。}DeepGauge~\citess{ma2018deepgauge}，SADL~\citess{Kim2019Guiding}，DeepInspect~\citess{Tian2019Testing}等工作主要基于神经元激活值分布来围绕重要神经元覆盖，意外覆盖，神经元激活向量距离，平均偏差等测试覆盖指标进行研究。
+其中，Kim等人~\citess{Kim2019Guiding}基于模型在测试样本下的激活值和训练集中的激活值之间的距离，提出了一个名为惊喜充分性的测试覆盖标准SADL。
+Tian等人~\citess{Tian2019Testing}提出了白盒测试框架DeepInspect来自动检测基于DNN的图片分类器的混淆和偏差错误。
+
+\item \textbf{基于神经元激活通路。}DeepGauge~\citess{ma2018deepgauge}，DeepPath~\citess{Wang2019DeepPath}，DeepCover~\citess{Sun2018Testing}等工作主要基于神经元激活通路来提出了重要神经元通路覆盖率，强激活通路覆盖率，符号-符号覆盖，距离-符号覆盖，符号-值覆盖，距离-值覆盖等指标。
+其中，Wang 等人~\citess{Wang2019DeepPath}提出了一组针对DNN模型的路径驱动的测试度量指标DeepPath,能够更好地识别对抗性样本。
+Sun等人~\citess{Sun2018Testing}提出将传统的 MC/DC 覆盖标准应用于DNN，通过结构覆盖率指标的指导用梯度搜索的方法生成新的测试样例集。
+
+\item \textbf{基于神经元状态。}DeepCruiser~\citess{Du2018DeepCruiser}等工作提出了状态级别覆盖，转换级别覆盖等覆盖指标。
+Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基于抽象状态转换模型的RNN网络测试覆盖准则以及在此基础上的自动化测试框架DeepCruiser，能够根据覆盖范围反馈生成具有高覆盖率的测试用例,并有效地对基于RNN的自动语音识别系统进行缺陷检测。
+
+\item \textbf{基于神经元组合分布。}Ma等人~\citess{ma2019deepct}还设计了神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率，提出了$t-way$组合稀疏覆盖，$t-way$组合密集覆盖，$(p,t)$完整性覆盖等覆盖指标。
+\end{itemize}
+
+总体来说，现有深度学习测试方法大多通过各种结构覆盖率标准来衡量DNN模型的测试充分性，然而由于DNN的黑盒特性，现有的结构覆盖指标绝大多数都具有较低的可解释性。
+
 
 \begin{table}[t]
 	\small
 	\centering
 	\caption{现有覆盖充分性指标总结}
 	\label{tab:coverage_criteria}
-	\begin{tabular}{c|c|c}
+	\begin{tabular}{p{2cm}|p{6cm}|p{1cm}|p{1cm}|p{2cm}}
 		\toprule
-		文献来源 & 发表年份 & 覆盖充分性指标 \\
+		主要思想\centering & 测试覆盖指标名称\centering & 复杂度 & 可解释性 & 文献 \\
 		\midrule
-		DeepXplore~\citess{Pei2019DeepXplore} & 2017 & 神经元覆盖 \\
-		\midrule
-	    DeepCover~\citess{Sun2018Testing} & 2018 & 符号-符号覆盖、距离-符号覆盖、符号-值覆盖、距离-值覆盖 \\
-		\midrule
-		DeepGauge~\citess{ma2018deepgauge} & 2018 & k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、Top-k神经元覆盖、Top-k 神经元模式 \\
-		\midrule
-	    DeepCT~\citess{ma2019deepct} & 2018 & t-way 组合稀疏覆盖、t-way 组合密集覆盖、(p,t)-完整性覆盖 \\
-	    \midrule
-	    DeepPath~\citess{Wang2019DeepPath} & 2019 & l-SAP 覆盖、l-OAP 覆盖、l-FSP 覆盖 \\
-	    \midrule
-	    DeepInspect~\citess{Tian2019Testing} & 2019 & 神经元激活概率向量距离、平均偏差等度量 \\
-	    \midrule
-	    DeepCruiser~\citess{Du2018DeepCruiser} & 2018 & 状态级别覆盖、转换级别覆盖 \\
-	    \midrule
-	    SADL~\citess{Kim2019Guiding} & 2019 & 意外覆盖 \\
-	    \midrule
-	    IDC~\citess{Gerasimou2020Importance} & 2019 & 重要性驱动覆盖 \\
+		单个神经元激活值\centering & 神经元覆盖率，K区间覆盖率，重要性驱动覆盖\centering & $O(n)$ & 无 & DeepXplore~\citess{Pei2019DeepXplore}，DeepGauge~\citess{ma2018deepgauge}，IDC~\citess{Gerasimou2020Importance} \\
+		神经元激活值边界\centering & 神经元边界覆盖率，强神经元覆盖率\centering & $O(n)$ & 无 & DeepGauge~\citess{ma2018deepgauge} \\
+		神经元激活值分布\centering & 重要神经元覆盖，意外覆盖，神经元激活向量距离，平均偏差\centering & $O(nm)$ & 无 & DeepGauge~\citess{ma2018deepgauge}，SADL~\citess{Kim2019Guiding}，DeepInspect~\citess{Tian2019Testing} \\
+		神经元激活通路\centering & 重要神经元通路覆盖率，强激活通路覆盖率，符号-符号覆盖，距离-符号覆盖，符号-值覆盖，距离-值覆盖\centering & $O(nl)$ & 无 & DeepGauge~\citess{ma2018deepgauge}，DeepPath~\citess{Wang2019DeepPath}，DeepCover~\citess{Sun2018Testing} \\
+		神经元状态\centering & 状态级别覆盖，转换级别覆盖\centering & $O(n)$ & 无 & DeepCruiser~\citess{Du2018DeepCruiser} \\
+		神经元组合分布\centering & $t-way$组合稀疏覆盖，$t-way$组合密集覆盖，$(p,t)$完整性覆盖\centering & $O(n^2)$ & 无 & DeepCT~\citess{ma2019deepct} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
+
 
 
 
@@ -63,20 +70,27 @@ Gerasimou等人~\citess{Gerasimou2020Importance}设计了通过衡量神经元�
 
 
 在对DNN系统的测试中,如何生成更加高质量、更容易暴露错误的测试数据是一个研究重点。
-现有对深度学习框架测试数据生成方面的测试方法研究主要有基于模糊测试、基于变异测试、基于符号执行、基于Concolic测试以及基于对抗的测试数据生成方法，如表\cref{tab:testingDataGen}所示。
+现有对深度学习框架测试数据生成方面的测试方法研究主要有基于模糊测试、基于符号执行、基于Concolic测试以及基于对抗样本的测试数据生成方法，如\cref{tab:testingDataGen}所示。
 
-模糊测试通过将种子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否会发生错误。Guo等人~\citess{Guo2018DLFuzz}提出了第一个差异模糊测试框架DLFuzz,用于指导DNN系统暴露异常行为。Odena等人~\citess{Odena2019TensorFuzz}将软件工程中的覆盖引导模糊测试概念引入神经网络领域,提出了TensorFuzz。Xie等人~\citess{xie2019coverage}提出了一个基于覆盖引导的自动化模糊测试框架DeepHunter，使用6种测试覆盖标准引导DNN模糊测试,实现了DNN模型在开发和部署两个阶段的缺陷检测。
-Ma等人~\citess{Ma2018DeepMutation}借鉴传统软件变异测试的思想,将其应用到针对DNN系统的测试中,提出了DeepMutation，可以对测试用例集质量进行有效的定量分析,帮助开发人员提高测试数据能力。
-Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与符号执行结合起来的软件测试技术。直接执行程序能够以更小的代价实现对特定输入的测试,而符号执行能够帮助以更少的执行次数发现错误,二者的结合能够发挥各自优势,以更高效率生成高质量的测试输入。Sun等人~\citess{Sun2018Concolic}将Concolic测试应用到DNN测试,提出了DeepConcolic，使用DeepXplore,DeepCover等诸多工作中提出的测试覆盖标准,将基于启发式逻辑的具体执行和符号执行相结合,证明了Concolic测试在深度神经网络测试上的有效性。Gopinath等人~\citess{Gopinath2018Symbolic}介绍了一种DNN轻量级符号执行的新技术DeepCheck,并将其应用于图像分类算法的测试,以解决DNN分析中的重要像素的识别以及创建1像素和2像素攻击等关键问题。
+\begin{itemize}
+\item \textbf{基于模糊测试。}模糊测试通过将种子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否会发生错误。Guo等人~\citess{Guo2018DLFuzz}提出了第一个差异模糊测试框架DLFuzz,用于指导DNN系统暴露异常行为。Odena等人~\citess{Odena2019TensorFuzz}将软件工程中的覆盖引导模糊测试概念引入神经网络领域,提出了TensorFuzz。Xie等人~\citess{xie2019coverage}提出了一个基于覆盖引导的自动化模糊测试框架DeepHunter，使用6种测试覆盖标准引导DNN模糊测试,实现了DNN模型在开发和部署两个阶段的缺陷检测。
 
+\item \textbf{基于Concolic测试。}Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与符号执行结合起来的软件测试技术。直接执行程序能够以更小的代价实现对特定输入的测试,而符号执行能够帮助以更少的执行次数发现错误,二者的结合能够发挥各自优势,以更高效率生成高质量的测试输入。Sun等人~\citess{Sun2018Concolic}将Concolic测试应用到DNN测试,提出了DeepConcolic，使用DeepXplore,DeepCover等诸多工作中提出的测试覆盖标准,将基于启发式逻辑的具体执行和符号执行相结合,证明了Concolic测试在深度神经网络测试上的有效性。
 
-基于对抗的方法从机器学习和深度学习的角度入手,通过向原始样本添加微小扰动的方式产生对抗样本,使深度学习框架进行错误分类。
+\item \textbf{基于符号执行。}Gopinath等人~\citess{Gopinath2018Symbolic}介绍了一种DNN轻量级符号执行的新技术DeepCheck,并将其应用于图像分类算法的测试,以解决DNN分析中的重要像素的识别以及创建1像素和2像素攻击等关键问题。
+
+\item \textbf{基于对抗样本。}基于对抗的方法从机器学习和深度学习的角度入手,通过向原始样本添加微小扰动的方式产生对抗样本,使深度学习框架进行错误分类。
 其中的基于对抗的DNN白盒测试方法指通过获得深度神经网络的内部状态,帮助生成对抗样本的一类方法。它利用了深度神经网络的内部信息,通常更容易生成高质量的对抗样本。Xiao等人~\citess{Xiao2018Spatially}提出了基于空间变换的图像对抗样本生成方法。He等人~\citess{He2018Decision}提出了一种针对区域分类的对抗样本生成方法OptMargin。
 而其黑盒方法在生成对抗样本过程中只需要获得DNN网络在各种输入下对应的输出,而不需要关注其内部状态。Wicker等人提出一种特征引导的对抗性样本的鲁棒性测试方法~\citess{Wicker2018FeatureGuided},该方法借助尺度不变特征转换算法提取特征,通过双方博弈游戏的方式确定特征和操作像素点,并利用蒙特卡罗树搜索算法逐步探索博弈状态空间来生成对抗性样本。
+\end{itemize}
 
 
-由于深度学习模型的复杂性，已有数据集生成工作针对智能组件的覆盖性测试难以锁定真正失效原因和脆弱点，导致修复较为困难。同时目前工作缺乏对可解释性的智能组件覆盖性测试的研究，也容易受噪声和异常样本影响，导致做出错误决策，具有较大的不确定性。
+总体来说，这些方法大部分启发自传统的软件测试方法，与各种面向神经网络的测试覆盖指标相结合，大部分以已有的图像分类数据集为基础进行实验研究，都有允许变异的能力。然而，由于测试覆盖指标的固有缺陷，这些包括对抗样本生成在内的的测试数据生成方法的可解释性也较低，已有数据集生成工作针对智能组件的覆盖性测试难以锁定真正失效原因和脆弱点，导致修复较为困难。同时目前工作缺乏对可解释性的智能组件覆盖性测试的研究，也容易受噪声和异常样本影响，导致做出错误决策，具有较大的不确定性。
 另一方面，第三方深度学习组件中存在的漏洞也可能作为智能组件脆弱点的突破口，从而威胁整个智能软件的安全性，导致智能软件出现中毒攻击、模型萃取、隐私泄露等安全威胁，然而，目前工作主要集中于单组件的脆弱性及其测试数据集生成，而对多组件、第三方智能组件以及组件间的交互影响研究较少。
+
+
+
+
 
 
 
@@ -85,25 +99,14 @@ Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与�
 	\centering
 	\caption{深度学习模型测试数据生成方法总结}
 	\label{tab:testingDataGen}
-	\begin{tabular}{c|c|c|c|c}
+	\begin{tabular}{c|p{5cm}|p{1cm}|c|p{3cm}}
 		\toprule
-		方法 & 类别 & 评价方法 & 指导目标 & 实验数据集 \\
+		算法思想 & 测试目标\centering & 测试对象 & 是否可变异 & 文献 \\
 		\midrule
-		DLFuzz~\citess{Guo2018DLFuzz} & 模糊测试 & 神经元覆盖率、生成效率、图片质量 & 神经元覆盖 & MNIST、ImageNet \\
-		\midrule
-	    TensorFuzz~\citess{Odena2019TensorFuzz} & 模糊测试 & 数值误差、预测精度 & 激活向量 & MNIST \\
-	    \midrule
-	    DeepHunter~\citess{xie2019coverage} & 模糊测试 & 测试精度、测试覆盖率 & 神经元覆盖、k-多区域神经元覆盖、神经元边界覆盖、强神经元激活覆盖、top-k 神经元覆盖 & MNIST、CIFAR-10、ImageNet \\
-		\midrule
-		DeepConcolic~\citess{Sun2018Concolic} & Concolic测试 & 测试覆盖率、对抗性样本质量 & 符号-符号覆盖、神经元边界覆盖、神经元覆盖、Lipschitz 连续性 & MNIST、CIFAR-10 \\
-		\midrule
-		DeepCheck~\citess{Gopinath2018Symbolic} & 符号执行 & - & 像素重要性、像素变化个数 & MNIST \\
-		\midrule
-		Xiao等人~\citess{Xiao2018Spatially} & 对抗样本生成 & 人类对比评价 & 像素平移距离 & MNIST、CIFAR-10、ImageNet \\
-		\midrule
-		OptMargin~\citess{He2018Decision} & 对抗样本生成 & 分类准确率、失真度 & 像素值差异 & MNIST、CIFAR-10 \\
-		\midrule
-	    Wicker等人~\citess{Wicker2018FeatureGuided} & 对抗样本生成 & 分类置信度 & 蒙特卡罗树搜索 & MNIST、CIFAR-10、Nexar、ImageNet \\
+		模糊测试 & 神经元边界覆盖，神经元覆盖率，L2距离，强神经元覆盖率，k区间覆盖率，重要神经元覆盖率\centering & 图像分类，自然语言识别 & 是 & TensorFuzz~\citess{Odena2019TensorFuzz}，DLFuzz~\citess{Guo2018DLFuzz}，DeepHunter~\citess{xie2019coverage} \\
+		Concolic测试 & 神经元覆盖率，MC/DC覆盖\centering & 图像分类 & 是 & DeepConcolic~\citess{Sun2018Concolic} \\
+		符号执行 & -\centering & 代码分类 & 是 & DeepCheck~\citess{Gopinath2018Symbolic} \\
+		对抗样本 & 蒙特卡洛树搜索，分类置信度，分类准确率、失真度，神经元覆盖率\centering & 图像分类 & 是 & Xiao等人~\citess{Xiao2018Spatially}，Wicker等人~\citess{Wicker2018FeatureGuided}，OptMargin~\citess{He2018Decision} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -111,19 +114,46 @@ Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与�
 
 
 
+
 \subsubsection{测试数据集优选方法}
 
+现有对深度学习框架测试数据集优选方面的测试方法研究主要有基于变异测试、基于边界聚类以及基于神经元状态统计的测试数据优选方法，如表\cref{tab:testingDataPri}所示。
 
-在对深度学习模型测试的测试数据集优选方面，
-Byun等人~\citess{Byun2019Input}使用从DNN模型执行的计算中得到DNN情绪量表，提出置信度、不确定性和异常性等三种情绪指标，在深度学习模型故障揭示能力、测试集选择和再训练等方面具有有效性。
-Wang等人~\citess{Wang2021Prioritizing}，结合learning-to-rank方法（一种解决排序问题的监督机器学习方法）来智能地组合变异结果用于有效的测试输入优选，在此基础上提出了方法PRIMA，认为能够杀死许多变异测试模型并产生不同预测结果的测试输入数据更有可能揭示DNN模型的错误，应该优先考虑此类数据。
-Hu等人~\citess{Hu2022AnEmpirical}提出了面向测试集优选的数据分布敏感指标DAT，用来减轻数据分布差异对标注数据集选择的影响，同时此指标能够更加有效地评价面向深度学习模型测试的测试数据集优选方法。
-Liu等人~\citess{Liu2022DeepState}提出一种针对RNN神经网络结构的测试集优选方法DeepState，基于RNN的神经元状态选择数据，通过捕获RNN中神经元的状态变化来识别可能错误分类的测试数据集，进一步地设计了一种测试选择方法，能够从大型数据集中获得具有强大故障检测和模型改进能力的测试数据集。
+\begin{itemize}
+\item \textbf{基于变异测试。}Wang等人~\citess{Wang2021Prioritizing}，结合learning-to-rank方法（一种解决排序问题的监督机器学习方法）来智能地组合变异结果用于有效的测试输入优选，在此基础上提出了方法PRIMA，认为能够杀死许多变异测试模型并产生不同预测结果的测试输入数据更有可能揭示DNN模型的错误，应该优先考虑此类数据。
+Ma等人~\citess{Ma2018DeepMutation}借鉴传统软件变异测试的思想,将其应用到针对DNN系统的测试中,提出了DeepMutation，可以对测试用例集质量进行有效的定量分析,帮助开发人员提高选择测试数据的能力。
+
+\item \textbf{基于神经元状态统计。}Liu等人~\citess{Liu2022DeepState}提出一种针对RNN神经网络结构的测试集优选方法DeepState，基于RNN的神经元状态选择数据，通过捕获RNN中神经元的状态变化来识别可能错误分类的测试数据集，进一步地设计了一种测试选择方法，能够从大型数据集中获得具有强大故障检测和模型改进能力的测试数据集。
 Feng等人~\citess{Feng2020DeepGini}提出一种基于DNN数据统计的测试集优选方法DeepGini，将检测错误分类概率问题简化为检测集合杂质问题，从而快速识别可能被错误分类。
+Hu等人~\citess{Hu2022AnEmpirical}提出了面向测试集优选的数据分布敏感指标DAT，用来减轻数据分布差异对标注数据集选择的影响，同时此指标能够更加有效地评价面向深度学习模型测试的测试数据集优选方法。
+Byun等人~\citess{Byun2019Input}使用从DNN模型执行的计算中得到DNN情绪量表，提出置信度、不确定性和异常性等三种情绪指标，在深度学习模型故障揭示能力、测试集选择和再训练等方面具有有效性。
 Gao等人~\citess{Gao2022Adaptive}提出了一种自适应的测试集优选方法ATS，可以从大量未标记的数据中选择有效子集去标注，在评估数据集的故障检测和模型改进能力方面有提升表现。
-Shen等人~\citess{Shen2020MultipleBoundary}提出了多边界聚类优选方法MCP，用于将测试数据聚类到深度学习模型的多个边界区域中，指定优先级从所有边界区域中均匀地选择样本以确保每个边界重建都有足够的有用样本，以此来更加高效地实现深度学习模型的再训练过程。
 
-类似于测试数据集生成的工作，已有测试数据集优选工作主要集中于单组件的脆弱性及其测试数据集优选，而对多组件、第三方智能组件以及组件间的交互影响研究较少。同时在选择数据的过程中也缺乏可解释性，对于神经元、参数和激活层对测试结果的影响的综合分析较少，在通过覆盖测试来定位智能组件失效原因的过程中缺乏因果分析。
+\item \textbf{基于边界聚类。}Shen等人~\citess{Shen2020MultipleBoundary}提出了多边界聚类优选方法MCP，用于将测试数据聚类到深度学习模型的多个边界区域中，指定优先级从所有边界区域中均匀地选择样本以确保每个边界重建都有足够的有用样本，以此来更加高效地实现深度学习模型的再训练过程。
+\end{itemize}
+
+类似于测试数据集生成的工作，已有测试数据集优选工作在选择数据的过程中也缺乏可解释性，对于神经元、参数和激活层对测试结果的影响的应用较多，因果分析较少。
+
+
+
+\begin{table}[t]
+	\small
+	\centering
+	\caption{深度学习模型测试数据集优选方法总结}
+	\label{tab:testingDataPri}
+	\begin{tabular}{c|c|c}
+		\toprule
+		算法思想 & 测试数据集 & 文献 \\
+		\midrule
+		基于变异测试 & x & PRIMA~\citess{Wang2021Prioritizing}，DeepMutation~\citess{Ma2018DeepMutation} \\
+		基于神经元状态统计 & x & DeepState~\citess{Liu2022DeepState}，DeepGini~\citess{Feng2020DeepGini}，DAT~\citess{Hu2022AnEmpirical}，Byun等人~\citess{Byun2019Input}，ATS~\citess{Gao2022Adaptive} \\
+		基于边界聚类 & x & MCP~\citess{Shen2020MultipleBoundary} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+
 
 
 
@@ -147,9 +177,10 @@ Wang等人~\citess{wang2020deepsonar}提出一种识别AI合成假声音的方�
 现有深度学习测试方法大多通过各种结构覆盖率标准来衡量DNN模型的测试充分性，然而由于DNN的黑盒特性，现有的结构覆盖指标具有较低的可解释性。
 Xie等人~\citess{Xie2021NPC}提出了一种新的可解释的覆盖指标，神经元路径覆盖（NFC），类似于传统的程序控制流图，该方法首先从DNN中提取决策图，决策图的路径代表DNN的决策逻辑,基于决策图的控制流和数据流，该方法提出了两种路径覆盖的变体来衡量测试用例在执行决策逻辑时的充分性，利用NFC覆盖指标对模型实际错误和对抗样本的测试都表现良好。
 此外，Chen等人~\citess{Chen2020Practical}提出了PACE用于深度学习测试的优化，它选择一小组测试输入来精确估计整个测试集的准确性，从而降低标记成本。PACE在设计的过程中也体现了可解释性和确定性，它首先结合了聚类算法，将具有不同测试能力的测试输入可解释地划分为不同的组。然后利用一种较先进的基于示例的可解释算法MMD-critic来从每个组中选择最具代表性的测试输入。
-总的来说，现有的结构覆盖指标具有较低的可解释性，导致大多数深度学习测试工作缺乏可解释性，对于神经元、参数和激活层对测试结果的影响的综合分析较少，在通过覆盖测试来定位智能组件失效原因的过程中缺乏因果分析。
 
-%现有工作绝大部分将传统软件测试思路改进应用到深度学习智能软件测试上，主要集中于单个组件的脆弱性，而对组件间的交互影响研究较少，尤其缺乏第三方组件漏洞对智能组件影响的研究。
+现有的结构覆盖指标具有较低的可解释性，导致大多数深度学习测试工作缺乏可解释性，对于神经元、参数和激活层对测试结果的影响的综合分析较少，在通过覆盖测试来定位智能组件失效原因的过程中缺乏因果分析。
+此外，现有工作绝大部分将传统软件测试思路改进应用到深度学习智能软件测试上，主要集中于单个组件的脆弱性，而对大型智能软件中各组件间的交互影响研究较少，尤其缺乏第三方深度学习组件漏洞对智能软件影响的研究分析。
+
 %然而在现实情形中，智能软件大量依赖基础库和第三方依赖库，其脆弱性来源包括智能组件脆弱性、非智能组件脆弱性以及跨组件脆弱性，而智能组件、基础框架组件以及其它第三方组件之间的交互影响尚不明确，第三方开源组件数量极大，版本较多，更新频繁，组件间依赖关系复杂，挖掘可能存在漏洞的脆弱组件难度较大。
 
 
