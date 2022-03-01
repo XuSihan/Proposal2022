@@ -125,7 +125,7 @@
         \textbf{随着模型复杂度的增加，测试度量指标的错误检测能力明显降低，而测试消耗的时间和空间资源显著增加}。在此基
         础上提出了基于数据分布差异的深度学习模型白盒测试方法，生成与训练数据分布差异大、错误检测能力强、规模相对较小的
         测试数据集。该基础工作推动了本项目在深度学习测试方向的开展与实施，部分成果已发表于国际顶级期刊\underline{T-ITS
-          2021（SCI一区}，参见已发表论文[1]）上，并与中汽研（天津）汽车工程研究院有限公司、国汽智控（北京）科技有限公司
+          2021（SCI一区}，参见已发表论文[2]）上，并与中汽研（天津）汽车工程研究院有限公司、国汽智控（北京）科技有限公司
         紧密合作，相关研究成果运用于自动驾驶计算基础平台并取得良好反馈。
 
   \item \textbf{在深度学习应用可解释性方向，深入研究了深度学习在源代码表示、许可证分析、自然语言接口等类型的输入数据上的
@@ -133,7 +133,7 @@
         建可解释的智能软件重构模型，推荐函数抽取、重命名等重构方法并解释重构原因；在许可证兼容性检测模型上，结合语法分
         析和命名实体识别，自动抽取许可证条款并进行极性分析，预测许可证兼容性并给出不兼容原因。这些基础工作使得申请人掌
         握了深度学习模型可解释性相关的理论和研究方法，为本项目提出深度学习可解释性测试方法提供了坚实的基础。相关研究成
-        果已发表于软件工程领域顶级期刊\underline{TOSEM 2022（CCF-A，SCI一区}，参见已发表论文[2]）、计算机研究与发展
+        果已发表于软件工程领域顶级期刊\underline{TOSEM 2022（CCF-A，SCI一区}，参见已发表论文[1]）、计算机研究与发展
         （\underline{中文CCF-A}，参见已发表论文[4]）以及软件可靠性领域顶级会议\underline{ISSRE 2017（CCF-B}，参见已发
         表论文[3]）上。
 
@@ -142,48 +142,82 @@
         ACTCGenerator并运行在公开的Web应用上。针对软件中同时存在多个缺陷导致难以定位的问题，提出了基于缺陷相关统计量的缺
         陷定位方法，利用统计模型区分不同缺陷导致的软件失效，提高定位效率。这些基础工作使得申请人掌握了关于测试数据生成和
         缺陷定位与修复的相关理论和技术，其思想可辅助本项目推动测试覆盖指标和测试数据生成方法的构建，为测试基于深度学习的
-        智能软件提供了坚实的基础。相关研究工作于发表于计算机学报（\underline{中文CCF-A}，参见已发表论文[4])。
+        智能软件提供了坚实的基础。相关研究工作于发表于计算机学报（\underline{中文CCF-A}，参见已发表论文[6])。
 \end{itemize}
 
 
 
 
-\subsection*{(2) 项目经验和数据集积累}
+\subsection{已发表的相关论文}
 
-申请人在新加坡国立大学联合培养期间，曾参与GEMINI（GEneralizable Medical
-Information aNalysis and Integration
-Platform~\footnote{https://www.comp.nus.edu.sg/~dbsystem/gemini/}）的研究与开
-发，该项目旨在构建通用的医疗数据集成和分析平台，{\kaishu 申请人在项目中负责研
-发医学概念嵌入预处理模块，参与工作空间和数据集管理开发，实现ICU死亡预测、糖尿病
-进展建模和X-Ray影像分析等临床应用模块}。申请人积累了大量电子医疗记录分析的经验，
-也发现电子医疗记录分析存在巨大的挑战，即本申请书提出的挑战和研究内容。此外，
-{\kaishu 申请人积累了多个研究数据集，如MIMIC-III, ADNI, Parkinson等}。此外，
-{\kaishu 申请人参与“南开大学-基准联合医学研究中心”建设}，已积累来自广州15家医
-院的肺癌患者的电子医疗记录；通过和北京大学医疗健康大数据国家研究院合作，积累DKD
-慢性肾病患者队列数据，包含约3000个患者。这些项目经验和数据积累是本项目重要的研究
-基础。
+\begin{enumerate}[label={[\arabic*]}]
+
+	\item \underline{Sihan Xu}, Ya Gao, Lingling Fan, Zheli Liu, Yang Liu, and
+	Hua Ji. LiDetector: License incompatibility detection for open source
+	software. In ACM Transactions on Software Engineering and Methodology
+	(TOSEM). 2022. doi:10.1145/3518994. (\textbf{SCI一区, CCF-A})
+
+	\item \underline{Sihan Xu}, Zhiyu Wang, Lingling Fan, Xiangrui Cai, Hua Ji,
+	Siau-Cheng Khoo, and Brij Bhooshan Gupta. DeepSuite: A test suite optimizer
+	for autonomous vehicles. In IEEE Transactions on Intelligent Transportation
+	Systems, 2021. doi: 10.1109/TITS.2021.3131808. (\textbf{SCI一区})
+	
+	\item \underline{Sihan Xu}, Aishwarya Sivaraman, Siau-Cheng Khoo, and Jing
+	Xu. Gems: An extract method refactoring recommender. In Proceedings of the
+	28th International Symposium on Software Reliability Engineering (ISSRE).
+	IEEE, 2017: 24-34. (\textbf{CCF-B})
+
+	\iffalse
+	\item \underline{Sihan Xu}, Ya Gao, Xiangrui Cai, Zhiyu Wang, and Hua Ji.
+Effective Multi-Fault Localization Based on Fault-Relevant Statistics. In
+Proceedings of the 45th Annual Computers, Software, and Applications Conference
+(COMPSAC). IEEE, 2021: 998-1003. (\textbf{CCF-C})
+
+	\item \underline{Sihan Xu}, Sen Zhang, Weijing Wang, Xinya Cao, Chenkai Guo,
+	and Jing Xu. Method name suggestion with hierarchical attention
+	networks[C]//Proceedings of the 2019 ACM SIGPLAN Workshop on Partial
+	Evaluation and Program Manipulation (PEPM). 2019: 10-21. (\textbf{CCF-C})
+    \fi
+
+	\item Xuan Pan, \underline{Sihan Xu}*, Xiangrui Cai, Yanlong Wen, and
+	Xiaojie Yuan. Survey on deep learning based natural language interface to
+	batabase. In Journal of Computer Research and Development, 2021, 58(9):
+	1925-1950. (\textbf{中文CCF-A，北大核心})
+
+	\item Xuesong Zhao, Yanbo Shao, Juanyun Mai, Airu Yin, and \underline{Sihan
+	Xu}. Respiratory sound classification based on BiGRU-attention network with
+	XGBoost. In Proceedings of the 13th International Conference on
+	Bioinformatics and Biomedicine (BIBM). IEEE, 2020: 915-920. (\textbf{CCF-B})
+
+	\item Shuo Wen, Jing Xu, Liying Yuan, Xiaohong Li, \underline{Sihan Xu}, and
+	Guannan Si. A test case generation approach for exploiting access control
+	vulnerability based on policy inference. In Chinese Journal of Computers,
+	2017, 40(12): 2659-2670. (\textbf{中文CCF-A，北大核心})
+
+	\item Chenkai Guo, Jing Xu, Guannan Si, Enpeng Li, and \underline{Sihan Xu}. Model
+	checking for software information leakage in mobile Application [J][J].
+	Chinese journal of Computers, 2016, 39. (\textbf{中文CCF-A，北大核心})
+
+
+\end{enumerate}
+
 
 基于上述工作，申请人有信心达到本项目的研究目标，并取得高水平研究成果。
 
 \NsfcSection{2}{工作条件}{（包括已具备的实验条件，尚缺少的实验条件和拟解决的途径，包括利用国家实验室、国家重点实验室和部门重点实验室等研究基地的计划与落实情况）；}
 
-项目依托南开大学数据库与信息系统实验室，本实验室通过前期研究课题的积累，已经建有
-大数据计算集群，拥有10余个GPU计算节点、服务器20余台和微机100余台，其中包含IBM、
-DELL等品牌高性能服务器，并安装了较齐全的软件系统以及开发工具，添置了比较齐备的网
-络设备，配置了Hadoop和Spark云计算平台，该平台以万兆带宽连接到学校的数据中心，通
-过校园网与Internet网连接，其强大的计算能力和I/O能力为本项目提供了测试平台和非常
-有利的条件。它可作为我们开展研究工作的场所，所以完成本项目研究的实验条件已基本具
-备。实验室每周举行组会，探讨学科前沿科学问题，进行头脑风暴，激发研究热情和创新
-点。实验室每两周举行一次大组会，总结当前工作，制定新的规划，保证研究方向和技术路
-线正确。实验室积极严谨的科研氛围是保证本项目实施的重要因素。
+项目依托南开大学可信人工智能系统实验室，该实验室隶属于天津市网络与数据安全技术重
+点实验室。项目组已完成多项国家自然科学基金项目和重要省部级项目，为本项目的研究奠
+定了坚实的理论基础和丰富的科研经验。通过前期研究课题的积累，项目组已具有较好的计
+算机实验室，有高性能服务器和深度学习服务器攻10台、高性能台式机30余台，都可以投入
+该项目的研究。申请人所在的南开大学计算机学院，建有专用的机房，为服务器托管和运行
+提供了良好的环境支持。天津市网络与数据安全技术重点实验室拥有国内先进的计算设备，
+可以支持本项目的研究工作。
 
-申请人参与建设“南开大学-基准联合医学研究中心”，该平台由南开大学计算机学院和广州
-基准医疗有限责任公司联合共建，旨在面向多模态医学数据，利用人工智能技术实现高发癌
-症的早诊早筛，广州基准公司提供数据和生物信息学专家支持，目前申请人所带领的团队已
-在肺癌筛查方面取得了一定的突破。在该平台的支持下，申请人及研究团队已与天津市肿瘤
-医院肺癌专科建立合作。此外，申请人与北京大学医疗健康大数据国家研究院张路霞教授团
-队合作研究慢性肾病患者病情进展预测。这些医疗机构和单位可为本项目提供数据支持和医
-学专家指导，保证本项目的顺利完成。
+针对本项目的研究，申请人已完成前期的实证研究和测试用例集优化框架，为方案的演示验
+证提供基础的实验条件支持。除客观条件以外，项目申请人在软件可靠性和人工智能的交叉
+领域积累了丰富的研究经验，其在可靠性领域旗舰会议 ISSRE 上发表的论文被评为该年度
+最佳论文，为研究深度学习模型测试提供了研究基础。
 
 综上所述，本项目的软硬件条件都已具备，尚无缺少的实验条件。
 
