@@ -40,7 +40,8 @@ D_{\text{test}}$上的性能应接近其在真实数据分布$\mathcal D_{gt}$�
 此，\textbf{针对泛化能力的深度学习模型测试目标}为：
 \begin{itemize}
     \item[（1）] 找出使模型做出错误预测的数据$\mathcal D_{\text{failures}}$，即
-    $\mathcal D_{\text{failures}}=\{(x, y) | (x, y) \in D \wedge f(x) \neq y\}$;
+    $\mathcal D_{\text{failures}}=\{(x, y) | (x, y) \in \mathcal D_{\text{test}}
+    \wedge f(x) \neq y\}$;
     \item[（2）] 生成测试数据集$\mathcal{D}_{\text{test}} \sim \mathcal{D}_{\text{gt}}$
     ，以揭示模型在真实数据分布上所期望的性能$\gamma_{gt}$和实际测试集上所表现的
     性能$\gamma_{\text{test}}$之间的差异；
