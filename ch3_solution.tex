@@ -79,6 +79,16 @@ Kolmogorov-Smirnov检验、D检验等方法，并结合正太性检验方法的�
 层表示的整体分布，修改层次聚类的优化目标，或者在层次聚类之后，再合并相近的簇，以
 准确反映中间层的决策语义}。
 
+\begin{figure}[htp]
+    \begin{small}
+        \begin{center}
+            \includegraphics[width=0.95\textwidth]{ch3_WBtestKD.pdf}
+        \end{center}
+        \caption{基于层次语义理解的知识蒸馏研究方案}
+        \label{fig:ch3:WBtestKD}
+    \end{small}
+\end{figure}
+
 另一方面，\textbf{得到各组（层）的决策语义后，本项目拟改进知识蒸馏的方式，将各层
 的决策语义融入``学生''模型的优化目标中}，其主要思想如公式\eqref{eq:kd}所示：
 \begin{equation}
@@ -89,16 +99,6 @@ Kolmogorov-Smirnov检验、D检验等方法，并结合正太性检验方法的�
 第$k$层的表示向量，$g^k(y_i)$将数据标签$y_i$转换成第$k$层的语义标签，本项目拟用
 KL散度来度量``学生''模型表示向量的分布是否和抽取的决策语义接近，作为损失函数的正
 则项，引导``学生''模型训练。
-
-\begin{figure}[htp]
-    \begin{small}
-        \begin{center}
-            \includegraphics[width=0.95\textwidth]{ch3_WBtestKD.pdf}
-        \end{center}
-        \caption{基于层次语义理解的知识蒸馏研究方案}
-        \label{fig:ch3:WBtestKD}
-    \end{small}
-\end{figure}
 
 得到可解释的``学生''模型后，本项目拟基于该模型提出决策路径覆盖度测试指标。根据公
 式\eqref{eq:kd}，在测试阶段，容易得到各层输出所属的粗粒度类别，\textbf{如
