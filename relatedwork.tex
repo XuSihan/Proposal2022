@@ -56,14 +56,14 @@ Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基
 	% \begin{tabular}{p{3cm}p{5cm}p{1cm}p{1cm}p{2cm}}
 	\begin{tabular}{cccccc}
 		\toprule
-		\textbf{序号}\centering & \textbf{主要思想}\centering & \textbf{测试覆盖指标名称}\centering & \textbf{复杂度} & \textbf{可解释性} & \textbf{文献号} \\
+		\textbf{序号} & \textbf{主要思想} & \textbf{测试覆盖指标名称} & \textbf{复杂度} & \textbf{可解释性} & \textbf{文献号} \\
 		\midrule
-		1 & 单个神经元激活值\centering & NC, KMNC, IDC\centering & $O(n)$ & 无 & \cite{ma2018deepgauge,Pei2019DeepXplore,Gerasimou2020Importance} \\
-		2 & 神经元激活值边界\centering & NBC, SNC, INC\centering & $O(n)$ & 无 & \cite{ma2018deepgauge} \\
-		3 & 神经元激活值分布\centering & INC, SC, NAVD, MD\centering & $O(nm)$ & 无 & \cite{ma2018deepgauge,Kim2019Guiding,Tian2019Testing} \\
-		4 & 神经元激活通路\centering & \makecell[c]{INPC, SAPC, SSC,\\ DSC, SVC, DVC} & $O(nl)$ & 无 & \cite{ma2018deepgauge,Wang2019DeepPath,Sun2018Testing} \\
-		5 & 神经元状态\centering & BSC, BTC\centering & $O(n)$ & 无 & \cite{Du2018DeepCruiser} \\
-		6 & 神经元组合分布\centering & \makecell[c]{$t-\text{way}$ CSC, \\$t\text{way}$ CDC, $(p,t)$ C} & $O(n^2)$ & 无 & \cite{ma2019deepct} \\
+		1 & 单个神经元激活值 & NC, KMNC, IDC & $O(n)$ & 无 & \cite{ma2018deepgauge,Pei2019DeepXplore,Gerasimou2020Importance} \\
+		2 & 神经元激活值边界 & NBC, SNC, INC & $O(n)$ & 无 & \cite{ma2018deepgauge} \\
+		3 & 神经元激活值分布 & INC, SC, NAVD, MD & $O(nm)$ & 无 & \cite{ma2018deepgauge,Kim2019Guiding,Tian2019Testing} \\
+		4 & 神经元激活通路 & \makecell[c]{INPC, SAPC, SSC,\\ DSC, SVC, DVC} & $O(nl)$ & 无 & \cite{ma2018deepgauge,Wang2019DeepPath,Sun2018Testing} \\
+		5 & 神经元状态 & BSC, BTC & $O(n)$ & 无 & \cite{Du2018DeepCruiser} \\
+		6 & 神经元组合分布 & \makecell[c]{$t-\text{way}$ CSC, \\$t\text{way}$ CDC, $(p,t)$ C} & $O(n^2)$ & 无 & \cite{ma2019deepct} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -109,14 +109,14 @@ Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基
 	\caption{深度学习模型测试数据生成方法总结}
 	\label{tab:testingDataGen}
 	% \begin{tabular}{cp{5cm}p{2cm}cp{2cm}}
-	\begin{tabular}{ccccc}
+	\begin{tabular}{cccccc}
 		\toprule
-		\textbf{序号} & \textbf{算法思想} & \textbf{测试目标}\centering & \textbf{测试数据} & \textbf{文献号} \\
+		\textbf{序号} & \textbf{算法思想} & \textbf{测试目标} & \textbf{测试数据} & \textbf{可解释性} & \textbf{文献号} \\
 		\midrule
-		1 & 模糊测试 & \makecell{NBC, NC, L2 Distance,\\ SNC, KMNC, INC}\centering & 图像，文本 & \cite{Odena2019TensorFuzz,Guo2018DLFuzz,xie2019coverage} \\
-		2 & Concolic测试 & NC, MC/DC\centering & 图像 & \cite{Sun2018Concolic} \\
-		3 & 符号执行 & 无\centering & 代码 & \cite{Gopinath2018Symbolic} \\
-		4 & 对抗样本 & \makecell{MCTS, Confidence, \\Accuracy, Distortion, NC}\centering & 图像 & \cite{Xiao2018Spatially,Wicker2018FeatureGuided,He2018Decision} \\
+		1 & 模糊测试 & \makecell{NBC, NC, L2 Distance,\\ SNC, KMNC, INC} & 图像，文本 & 无 & \cite{Odena2019TensorFuzz,Guo2018DLFuzz,xie2019coverage} \\
+		2 & Concolic测试 & NC, MC/DC & 图像 & 无 & \cite{Sun2018Concolic} \\
+		3 & 符号执行 & 无 & 代码 & 无 & \cite{Gopinath2018Symbolic} \\
+		4 & 对抗样本 & \makecell{MCTS, Confidence, \\Accuracy, Distortion, NC} & 图像 & 无 & \cite{Xiao2018Spatially,Wicker2018FeatureGuided,He2018Decision} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -156,13 +156,13 @@ Hu等人~\citess{Hu2022AnEmpirical}提出了面向测试集优选的数据分布
 	\centering
 	\caption{深度学习模型测试数据集优选方法总结}
 	\label{tab:testingDataPri}
-	\begin{tabular}{cccc}
+	\begin{tabular}{ccccc}
 		\toprule
-		\textbf{序号} & \textbf{算法思想} & \textbf{测试对象} & \textbf{文献号} \\
+		\textbf{序号} & \textbf{算法思想} & \textbf{测试对象} & \textbf{可解释性} & \textbf{文献号} \\
 		\midrule
-		1 & 基于变异测试 & 图像分类 & \cite{Wang2021Prioritizing,Ma2018DeepMutation} \\
-		2 & 基于神经元状态统计 & 图像分类，自然语言识别 & \cite{Liu2022DeepState,Byun2019Input,Gao2022Adaptive} \\
-		3 & 基于数据分布 & 图像分类，自然语言识别 & \cite{Shen2020MultipleBoundary,Feng2020DeepGini,Hu2022AnEmpirical} \\
+		1 & 基于变异测试 & 图像分类 & 无 & \cite{Wang2021Prioritizing,Ma2018DeepMutation} \\
+		2 & 基于神经元状态统计 & 图像分类，自然语言识别 & 无 & \cite{Liu2022DeepState,Byun2019Input,Gao2022Adaptive} \\
+		3 & 基于数据分布 & 图像分类，自然语言识别 & 无 & \cite{Shen2020MultipleBoundary,Feng2020DeepGini,Hu2022AnEmpirical} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
