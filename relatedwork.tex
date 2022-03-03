@@ -16,7 +16,7 @@
 
 深度学习测试中的神经元覆盖率的思想启发自传统软件测试中的白盒测试。
 对于传统软件，如果遍历所有的分支语句结构就表明所有可能的输入都能够得到合理的输出。
-而对于深度神经网络，由于模型本身的高纬特征和连续性导致测试样本无法遍历所有可能的输入空间。因此，测试者期望测试数据集包含尽可能更多样化的测试样例，以更好的评估模型的准确性和鲁棒性。各种神经网络结构覆盖率指标从不同角度测试评估了测试数据集的多样性和完备性，因此对深度学习白盒测试具有重要意义。 
+而对于深度神经网络，由于模型本身的高纬特征和连续性导致测试样本无法遍历所有可能的输入空间。因此，测试者期望测试数据集包含尽可能更多样化的测试样例，以更好的评估模型的准确性和鲁棒性。各种神经网络结构覆盖率指标从不同角度测试评估了测试数据集的多样性和完备性，因此对深度学习白盒测试具有重要意义。
 现有的覆盖充分性指标如\cref{tab:coverage_criteria}所示，
 现有的覆盖指标主要基于研究神经元的激活值、激活值边界、激活值分布、激活通路以及神经元的状态或者组合分布等思想。
 其中涉及到的覆盖指标主要有神经元覆盖率(NC)，$k$区间覆盖率(KMNC)，重要性驱动覆盖(IDC)，神经元边界覆盖率(NBC)，强神经元覆盖率(SNC)，重要神经元覆盖(INC)，意外覆盖(SC)，神经元激活向量距离(NAVD)，平均偏差(MD)，
@@ -61,9 +61,9 @@ Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基
 		1 & 单个神经元激活值\centering & NC, KMNC, IDC\centering & $O(n)$ & 无 & \cite{ma2018deepgauge,Pei2019DeepXplore,Gerasimou2020Importance} \\
 		2 & 神经元激活值边界\centering & NBC, SNC, INC\centering & $O(n)$ & 无 & \cite{ma2018deepgauge} \\
 		3 & 神经元激活值分布\centering & INC, SC, NAVD, MD\centering & $O(nm)$ & 无 & \cite{ma2018deepgauge,Kim2019Guiding,Tian2019Testing} \\
-		4 & 神经元激活通路\centering & INPC, SAPC, SSC, DSC, SVC, DVC\centering & $O(nl)$ & 无 & \cite{ma2018deepgauge,Wang2019DeepPath,Sun2018Testing} \\
+		4 & 神经元激活通路\centering & \makecell[c]{INPC, SAPC, SSC,\\ DSC, SVC, DVC} & $O(nl)$ & 无 & \cite{ma2018deepgauge,Wang2019DeepPath,Sun2018Testing} \\
 		5 & 神经元状态\centering & BSC, BTC\centering & $O(n)$ & 无 & \cite{Du2018DeepCruiser} \\
-		6 & 神经元组合分布\centering & $t-way$ CSC, $t-way$ CDC, $(p,t)$ C\centering & $O(n^2)$ & 无 & \cite{ma2019deepct} \\
+		6 & 神经元组合分布\centering & \makecell[c]{$t-\text{way}$ CSC, \\$t\text{way}$ CDC, $(p,t)$ C} & $O(n^2)$ & 无 & \cite{ma2019deepct} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -77,7 +77,7 @@ Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基
 
 
 在对DNN系统的测试中,如何生成更加高质量、更容易暴露错误的测试数据是一个研究重点。
-现有对深度学习框架测试数据生成方面的测试方法研究主要有基于模糊测试、基于符号执行、基于Concolic测试以及基于对抗样本的测试数据生成方法，如~\cref{tab:testingDataGen}所示，
+现有对深度学习框架测试数据生成方面的测试方法研究主要有基于模糊测试、基于符号执行、基于Concolic测试以及基于对抗样本的测试数据生成方法，如\cref{tab:testingDataGen}所示，
 其中有蒙特卡洛树搜索(MCTS)，置信度(Confidence)，分类准确率(Accuracy)、失真度(Distortion)等指标。
 
 
@@ -113,10 +113,10 @@ Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基
 		\toprule
 		\textbf{序号} & \textbf{算法思想} & \textbf{测试目标}\centering & \textbf{测试数据} & \textbf{文献号} \\
 		\midrule
-		1 & 模糊测试 & NBC, NC, L2 Distance, SNC, KMNC, INC\centering & 图像，文本 & \cite{Odena2019TensorFuzz,Guo2018DLFuzz,xie2019coverage} \\
+		1 & 模糊测试 & \makecell{NBC, NC, L2 Distance,\\ SNC, KMNC, INC}\centering & 图像，文本 & \cite{Odena2019TensorFuzz,Guo2018DLFuzz,xie2019coverage} \\
 		2 & Concolic测试 & NC, MC/DC\centering & 图像 & \cite{Sun2018Concolic} \\
-		3 & 符号执行 & -\centering & 代码 & \cite{Gopinath2018Symbolic} \\
-		4 & 对抗样本 & MCTS, Confidence, Accuracy, Distortion, NC\centering & 图像 & \cite{Xiao2018Spatially,Wicker2018FeatureGuided,He2018Decision} \\
+		3 & 符号执行 & 无\centering & 代码 & \cite{Gopinath2018Symbolic} \\
+		4 & 对抗样本 & \makecell{MCTS, Confidence, \\Accuracy, Distortion, NC}\centering & 图像 & \cite{Xiao2018Spatially,Wicker2018FeatureGuided,He2018Decision} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -127,7 +127,7 @@ Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基
 
 \subsubsection{测试数据集优选方法}
 
-现有对深度学习框架测试数据集优选方面的测试方法研究主要有基于变异测试、基于边界聚类以及基于神经元状态统计的测试数据优选方法，如表\cref{tab:testingDataPri}所示。
+现有对深度学习框架测试数据集优选方面的测试方法研究主要有基于变异测试、基于边界聚类以及基于神经元状态统计的测试数据优选方法，如\cref{tab:testingDataPri}所示。
 
 \begin{itemize}
 

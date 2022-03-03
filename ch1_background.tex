@@ -24,22 +24,24 @@
 工）的应用。因此，\textbf{迫切需要在部署深度学习模型前找到其潜在的错误行为来提升
 深度学习在安全攸关任务上的可靠性}。
 
-Szegedy等人首次发现，数据中微小的扰动，即便无法被人类发现，却可能造成模型做出错
-误判断~\cite{szegedy2013intriguing}，并由此引发了很多关于对抗鲁棒性的研究。事实
+Szegedy等人~\cite{szegedy2013intriguing}首次发现，数据中微小的扰动，即便无法被人
+类发现，却可能造成模型做出错误判断，并由此引发了很多关于对抗鲁棒性的研究。事实
 上，部署在真实世界的模型也可能遇到各种各样的自然意外，如天气的改变、路标损坏等，
 这些自然对抗样本也可能导致模型做出错误预测。除了鲁棒性，\textbf{模型的泛化能力对
 于其走向实际应用也有极为重要的意义}。深度学习的目标可定义为训练一个模型${f}$，使
-得该模型能够适用于真实数据分布$D_{gt}$中任意一个从未见过的数据，而不仅仅是记住训
-练数据。为了提高真实部署的可靠性，需要系统测试深度学习模型的泛化能力
+得该模型能够适用于真实数据分布$\mathcal D_{gt}$中任意一个从未见过的数据，而不仅
+仅是记住训练数据。为了提高真实部署的可靠性，需要系统测试深度学习模型的泛化能力
 $\gamma_{gt}$：$\mathbb{E}_{(x, y) \sim \mathcal{D}_{g t}} \mathbb{I}[f(x)=y]$。
-然而，由于客观世界的真实数据分布是未知的，因此通常在测试集$D_{\text{test}}$上评
-估模型性能$\gamma_{\text {test }}:\left(1 /\left|D_{\text {test }}\right|\right)
-\sum_{(x, y) \in D_{\text {test }}} \mathbb{I}[f(x)=y]$。若${f}$的泛化能力较强，
-则其在足够充分的测试集$D_{\text{test}}$上的性能应接近其在真实数据分布$D_{gt}$上
-的性能。因此，\textbf{针对泛化能力的深度学习模型测试目标}为：
+然而，由于客观世界的真实数据分布是未知的，因此通常在测试集$\mathcal
+D_{\text{test}}$上评估模型性能$\gamma_{\text {test }}:\left(1 /\left|\mathcal
+D_{\text {test }}\right|\right) \sum_{(x, y) \in \mathcal D_{\text {test }}}
+\mathbb{I}[f(x)=y]$。若${f}$的泛化能力较强，则其在足够充分的测试集$\mathcal
+D_{\text{test}}$上的性能应接近其在真实数据分布$\mathcal D_{gt}$上的性能。因
+此，\textbf{针对泛化能力的深度学习模型测试目标}为：
 \begin{itemize}
-    \item[（1）] 找到测试数据$(x, y)$使得模型做出错误预测，即$(x, y) \in D \cdot f(x)
-    \neq y$;
+    \item[（1）] 找出使模型做出错误预测的数据$\mathcal D_{\text{failures}}$，即
+    $\mathcal D_{\text{failures}}=\{(x, y) | (x, y) \in \mathcal D_{\text{test}}
+    \wedge f(x) \neq y\}$;
     \item[（2）] 生成测试数据集$\mathcal{D}_{\text{test}} \sim \mathcal{D}_{\text{gt}}$
     ，以揭示模型在真实数据分布上所期望的性能$\gamma_{gt}$和实际测试集上所表现的
     性能$\gamma_{\text{test}}$之间的差异；
