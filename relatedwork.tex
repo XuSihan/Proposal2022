@@ -2,7 +2,8 @@
 
 % 根据与本项目的相关性，本节从覆盖充分性指标、神经网络测试数据生成、深度学习框架测试以及第三方组件漏洞挖掘四个方面介绍和分析国内外研究现状。
 
-根据与本项目的相关性，本节从覆盖充分性指标体系、测试数据集生成方法、测试数据集优选方法、深度学习测试可解释性、知识蒸馏技术等五个方面介绍和分析国内外研究现状。
+根据与本项目的相关性，本节从覆盖充分性指标体系、测试数据集生成、测试数据集优选、
+深度学习测试可解释性和知识蒸馏技术等五个方面介绍和分析国内外研究现状。
 
 %研究现状：
 %1.覆盖充分性指标体系--缺点，找不到失效原因，不可解释
@@ -13,57 +14,32 @@
 
 
 \subsubsection{覆盖充分性指标研究}
+针对深度神经网络的结构覆盖测试启发自传统软件的白盒测试。对于传统软件，若测试集遍
+历了待测软件所有的语句、分支和路径，则在一定程度上表明测试集对软件的功能进行了充
+分性测试~\cite{hilton2018large}。对于深度神经网络而言，其本身的高维连续特性导致
+测试集很难遍历所有可能的输入空间，为提高测试集多样性，目前有很多研究提出了关于深
+度神经网络的结构覆盖指标，从不同角度测试衡量测试集对模型的覆盖充分
+性。\cref{tab:coverage_criteria}总结了现有神经网络测试覆盖指标，其中$m$表示训练
+集规模，$n$表示神经元个数，$l$表示\textbf{XXX}。根据覆盖思想的不同，可分为以下六
+类：
 
-深度学习测试中的神经元覆盖率的思想启发自传统软件测试中的白盒测试。
-对于传统软件，如果遍历所有的分支语句结构就表明所有可能的输入都能够得到合理的输出。
-而对于深度神经网络，由于模型本身的高纬特征和连续性导致测试样本无法遍历所有可能的输入空间。因此，测试者期望测试数据集包含尽可能更多样化的测试样例，以更好的评估模型的准确性和鲁棒性。各种神经网络结构覆盖率指标从不同角度测试评估了测试数据集的多样性和完备性，因此对深度学习白盒测试具有重要意义。
-现有的覆盖充分性指标如\cref{tab:coverage_criteria}所示，
-现有的覆盖指标主要基于研究神经元的激活值、激活值边界、激活值分布、激活通路以及神经元的状态或者组合分布等思想。
-其中涉及到的覆盖指标主要有神经元覆盖率(NC)，$k$区间覆盖率(KMNC)，重要性驱动覆盖(IDC)，神经元边界覆盖率(NBC)，强神经元覆盖率(SNC)，重要神经元覆盖(INC)，意外覆盖(SC)，神经元激活向量距离(NAVD)，平均偏差(MD)，
-重要神经元通路覆盖率(INPC)，强激活通路覆盖率(SAPC)，符号-符号覆盖(SSC)，距离-符号覆盖(DSC)，符号-值覆盖(SVC)，距离-值覆盖(DVC)，
-状态级别覆盖(BSC)，转换级别覆盖(BTC)，$t-way$组合稀疏覆盖($t-way$ CSC)，$t-way$组合密集覆盖($t-way$ CDC)，$(p,t)$完整性覆盖($(p,t)$ C)等指标。
-
-\begin{itemize}
-	\item \textbf{基于单个神经元的激活值。}DeepXplore~\citess{Pei2019DeepXplore}、DeepGauge~\citess{ma2018deepgauge}、IDC~\citess{Gerasimou2020Importance}等工作主要围绕神经元覆盖率、K区间覆盖率、重要性驱动覆盖等测试覆盖指标。
-	      其中，K.Pei等人~\citess{Pei2019DeepXplore}首次提出了深度学习系统的第一个覆盖标准DeepXplore，强调了神经元激活值对于捕捉深度神经网络(DNN) 内部状态的重要性，如果神经元的值高于预定义的阈值，则认为其被激活，神经元覆盖率（NC）被定义为测试激活的独特神经元的覆盖率。
-	      Ma等人~\citess{ma2018deepgauge}为神经网络模型设计了一套多粒度测试覆盖率DeepGauge，分为神经元粒度和区间粒度，具体来说，他们提出了k区间覆盖率，将每个神经元的输出范围基于训练集的上下界平均划分为k个部分，并计算测试数据集覆盖的比例。
-	      Gerasimou等人~\citess{Gerasimou2020Importance}设计了通过衡量神经元对分类结果的影响比例提出了重要性驱动覆盖标准。
-
-	\item \textbf{基于神经元激活值边界。}Ma等人~\citess{ma2018deepgauge}还提出了神经元边界覆盖指标和强神经元激活覆盖指标），它们着重考量了测试样本神经元激活值超过训练集边界的比率。
-
-	\item \textbf{基于神经元激活值分布。}DeepGauge~\citess{ma2018deepgauge}，SADL~\citess{Kim2019Guiding}，DeepInspect~\citess{Tian2019Testing}等工作主要基于神经元激活值分布来围绕重要神经元覆盖，意外覆盖，神经元激活向量距离，平均偏差等测试覆盖指标进行研究。
-	      其中，Kim等人~\citess{Kim2019Guiding}基于模型在测试样本下的激活值和训练集中的激活值之间的距离，提出了一个名为惊喜充分性的测试覆盖标准SADL。
-	      Tian等人~\citess{Tian2019Testing}提出了白盒测试框架DeepInspect来自动检测基于DNN的图片分类器的混淆和偏差错误。
-
-	\item \textbf{基于神经元激活通路。}DeepGauge~\citess{ma2018deepgauge}，DeepPath~\citess{Wang2019DeepPath}，DeepCover~\citess{Sun2018Testing}等工作主要基于神经元激活通路来提出了重要神经元通路覆盖率，强激活通路覆盖率，符号-符号覆盖，距离-符号覆盖，符号-值覆盖，距离-值覆盖等指标。
-	      其中，Wang 等人~\citess{Wang2019DeepPath}提出了一组针对DNN模型的路径驱动的测试度量指标DeepPath,能够更好地识别对抗性样本。
-	      Sun等人~\citess{Sun2018Testing}提出将传统的MC/DC覆盖标准应用于DNN，通过结构覆盖率指标的指导用梯度搜索的方法生成新的测试样例集。
-
-	\item \textbf{基于神经元状态。}DeepCruiser~\citess{Du2018DeepCruiser}等工作提出了状态级别覆盖，转换级别覆盖等覆盖指标。
-	      Du等人~\citess{Du2018DeepCruiser}提出了状态级别和转换级别两种基于抽象状态转换模型的RNN网络测试覆盖准则以及在此基础上的自动化测试框架DeepCruiser，能够根据覆盖范围反馈生成具有高覆盖率的测试用例,并有效地对基于RNN的自动语音识别系统进行缺陷检测。
-
-	\item \textbf{基于神经元组合分布。}Ma等人~\citess{ma2019deepct}还设计了神经元相对活跃度覆盖率，它计算了曾经是最活跃的神经元之一的神经元的比率，提出了$t-way$组合稀疏覆盖，$t-way$组合密集覆盖，$(p,t)$完整性覆盖等覆盖指标。
-\end{itemize}
-
-总体来说，现有深度学习测试方法大多通过各种结构覆盖率标准来衡量DNN模型的测试充分性，然而由于DNN的黑盒特性，现有的结构覆盖指标绝大多数都具有较低的可解释性。
-
-
-\begin{table}[t]
+\begin{table}[htp]
+	\renewcommand\arraystretch{1.5}
 	\small
 	\centering
-	\caption{现有覆盖充分性指标总结}
+	\caption{现有神经网络覆盖充分性指标}
 	\label{tab:coverage_criteria}
 	% \begin{tabular}{p{3cm}p{5cm}p{1cm}p{1cm}p{2cm}}
-	\begin{tabular}{cccccc}
+	\begin{tabular}{ccccc}
 		\toprule
-		\textbf{序号} & \textbf{主要思想} & \textbf{测试覆盖指标名称}        & \textbf{复杂度} & \textbf{可解释性} & \textbf{文献号}                                                  \\
+		\textbf{序号} & \textbf{主要思想} & \textbf{覆盖指标}       & \textbf{复杂度} & \textbf{文献号}                                                  \\
 		\midrule
-		1             & 单个神经元激活值  & NC, KMNC, IDC                    & $O(n)$          & 无                & \cite{ma2018deepgauge,Pei2019DeepXplore,Gerasimou2020Importance} \\
-		2             & 神经元激活值边界  & NBC, SNC, INC                    & $O(n)$          & 无                & \cite{ma2018deepgauge}                                           \\
-		3             & 神经元激活值分布  & INC, SC, NAVD, MD                & $O(nm)$         & 无                & \cite{ma2018deepgauge,Kim2019Guiding,Tian2019Testing}            \\
-		4             & 神经元激活通路    & \makecell[c]{INPC, SAPC, SSC,                                                                                                             \\ DSC, SVC, DVC} & $O(nl)$ & 无 & \cite{ma2018deepgauge,Wang2019DeepPath,Sun2018Testing} \\
-		5             & 神经元状态        & BSC, BTC                         & $O(n)$          & 无                & \cite{Du2018DeepCruiser}                                         \\
-		6             & 神经元组合分布    & \makecell[c]{$t-\text{way}$ CSC,                                                                                                          \\$t\text{way}$ CDC, $(p,t)$ C} & $O(n^2)$ & 无 & \cite{ma2019deepct} \\
+		1             & 基于单个神经元取值  & 神经元覆盖、$k$-多区间覆盖                    & $O(n)$          & \cite{ma2018deepgauge}\cite{Pei2019DeepXplore} \\
+		2             & 训练集神经元边界  & 神经元边界覆盖、强激活覆盖                    & $O(nm)$          & \cite{ma2018deepgauge}                                           \\
+		3             & 与训练数据分布的距离  & 意外覆盖，平均偏差等                & $O(nm)$         & \cite{Kim2019Guiding}\cite{Tian2019Testing}            \\
+		4             & 神经元激活通路覆盖    & 符号-符号覆盖、距离-符号覆盖等 & $O(nl)$ & \cite{Wang2019DeepPath}\cite{Sun2018Testing} \\
+		5             & 神经元的状态转换        & 状态级别覆盖、转换级别覆盖                         & $O(n)$          & \cite{Du2018DeepCruiser}                                         \\
+		6             & 神经元组合测试    & $t$-way组合稀疏覆盖、密集覆盖等 & $O(n^2)$ & \cite{ma2019deepct} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -72,38 +48,66 @@
 
 
 
+%其中涉及到的覆盖指标主要有神经元覆盖率(NC)，$k$区间覆盖率(KMNC)，重要性驱动覆盖
+%(IDC)，神经元边界覆盖率(NBC)，强神经元覆盖率(SNC)，重要神经元覆盖(INC)，意外覆
+%盖(SC)，神经元激活向量距离(NAVD)，平均偏差(MD)，重要神经元通路覆盖率(INPC)，强
+%激活通路覆盖率(SAPC)，符号-符号覆盖(SSC)，距离-符号覆盖(DSC)，符号-值覆盖
+%(SVC)，距离-值覆盖(DVC)，状态级别覆盖(BSC)，转换级别覆盖(BTC)，$t-way$组合稀疏
+%%%%覆盖($t-way$ CSC)，$t-way$组合密集覆盖($t-way$
+%CDC)，$(p,t)$完整性覆盖($(p,t)$ C)等指标。
 
-\subsubsection{测试数据集生成方法}
-
-
-在对DNN系统的测试中,如何生成更加高质量、更容易暴露错误的测试数据是一个研究重点。
-现有对深度学习框架测试数据生成方面的测试方法研究主要有基于模糊测试、基于符号执行、基于Concolic测试以及基于对抗样本的测试数据生成方法，如\cref{tab:testingDataGen}所示，
-其中有蒙特卡洛树搜索(MCTS)，置信度(Confidence)，分类准确率(Accuracy)、失真度(Distortion)等指标。
-
+%DeepXplore~\cite{Pei2019DeepXplore}、DeepGauge~\citess{ma2018deepgauge}、IDC~\citess{Gerasimou2020Importance}
+%等工作主要围绕神经元覆盖率、K区间覆盖率、重要性驱动覆盖等测试覆盖指标。
 
 \begin{itemize}
-	\item \textbf{基于模糊测试。}模糊测试通过将种子输入随机或者按照某种规则进行变换作为新的输入,并观察软件在这些非预期输入下是否会发生错误。Guo等人~\citess{Guo2018DLFuzz}提出了第一个差异模糊测试框架DLFuzz,用于指导DNN系统暴露异常行为。Odena等人~\citess{Odena2019TensorFuzz}将软件工程中的覆盖引导模糊测试概念引入神经网络领域,提出了TensorFuzz。Xie等人~\citess{xie2019coverage}提出了一个基于覆盖引导的自动化模糊测试框架DeepHunter，使用6种测试覆盖标准引导DNN模糊测试,实现了DNN模型在开发和部署两个阶段的缺陷检测。
+	\item \textbf{基于单个神经元取值}，受结构覆盖思想启发，部分研究者提出度量神
+	      经元被覆盖的程度来评估测试充分性。Pei等人~\cite{Pei2019DeepXplore}首次
+	      提出了针对深度学习模型白盒测试指标，即神经元覆盖，将取值高于阈值的神经
+	      元视为被激活，并计算被激活神经元的比例。 Ma等人~\cite{ma2018deepgauge}
+	      提出了$k$-多区间覆盖指标，基于每个神经元在训练集上的取值范围，将其划分
+	      为多个取值区间，并计算对神经元值区间的覆盖率。
+	      %Gerasimou等人~\citess{Gerasimou2020Importance}设计了通过衡量神经元对分类结果的影响比例提出了重要性驱动覆盖标准。
 
-	\item \textbf{基于Concolic测试。}Concolic测试技术~\cite{Majumdar2007Hybrid}是一种将程序具体执行与符号执行结合起来的软件测试技术。直接执行程序能够以更小的代价实现对特定输入的测试,而符号执行能够帮助以更少的执行次数发现错误,二者的结合能够发挥各自优势,以更高效率生成高质量的测试输入。Sun等人~\citess{Sun2018Concolic}将Concolic测试应用到DNN测试,提出了DeepConcolic，使用DeepXplore,DeepCover等诸多工作中提出的测试覆盖标准,将基于启发式逻辑的具体执行和符号执行相结合,证明了Concolic测试在深度神经网络测试上的有效性。
+	\item \textbf{基于训练集神经元的值边界}，Ma等人~\cite{ma2018deepgauge}提出神
+	经元边界覆盖指标和强激活覆盖指标，计算测试集中神经元的值超过训练集的上下边界
+	的比例。
 
-	\item \textbf{基于符号执行。}Gopinath等人~\citess{Gopinath2018Symbolic}介绍了一种DNN轻量级符号执行的新技术DeepCheck,并将其应用于图像分类算法的测试,以解决DNN分析中的重要像素的识别以及创建1像素和2像素攻击等关键问题。
+	\item \textbf{基于神经元激活值分布}，Kim等人~\cite{Kim2019Guiding}提出了“意
+	      外”覆盖指标，衡量模型在测试集和训练集中神经元数据分布距离。Tian等人
+	      ~\cite{Tian2019Testing}提出白盒测试框架DeepInspect来检测深度神经网络中
+	      的混淆和偏差错误。
 
-	\item \textbf{基于对抗样本。}基于对抗的方法从机器学习和深度学习的角度入手,通过向原始样本添加微小扰动的方式产生对抗样本,使深度学习框架进行错误分类。
-	      其中的基于对抗的DNN白盒测试方法指通过获得深度神经网络的内部状态,帮助生成对抗样本的一类方法。它利用了深度神经网络的内部信息,通常更容易生成高质量的对抗样本。Xiao等人~\citess{Xiao2018Spatially}提出了基于空间变换的图像对抗样本生成方法。He等人~\citess{He2018Decision}提出了一种针对区域分类的对抗样本生成方法OptMargin。
-	      而其黑盒方法在生成对抗样本过程中只需要获得DNN网络在各种输入下对应的输出,而不需要关注其内部状态。Wicker等人提出一种特征引导的对抗性样本的鲁棒性测试方法~\citess{Wicker2018FeatureGuided},该方法借助尺度不变特征转换算法提取特征,通过双方博弈游戏的方式确定特征和操作像素点,并利用蒙特卡罗树搜索算法逐步探索博弈状态空间来生成对抗性样本。
+	\item \textbf{基于神经元激活通路}，Wang 等人~\cite{Wang2019DeepPath}提出了一
+	      组针对神经网络模型的路径驱动的测试度量指标，能够更好地识别对抗性样本。
+	      Sun等人~\cite{Sun2018Testing}提出将传统的MC/DC覆盖标准应用于深度神经网
+	      络，并在此基础上采用梯度搜索的方法生成新的测试集。
+
+	\item \textbf{基于神经元状态}，Du等人~\cite{Du2018DeepCruiser}针对循环神经网
+	      络提出了状态级别和转换级别两种测试覆盖指标，根据覆盖范围反馈生成具有高
+	      覆盖率的测试集，并对基于循环神经网络的自动语音识别系统进行检测。
+
+	\item \textbf{基于神经元组合分布}，Ma等人~\cite{ma2019deepct}将组合测试应用
+	于神经网络，提出了$t$-way组合稀疏覆盖、$t$-way组合密集覆盖和$(p,t)$完整性覆
+	盖等指标。
 \end{itemize}
 
-
-总体来说，这些方法大部分启发自传统的软件测试方法，与各种面向神经网络的测试覆盖指标相结合，大部分以已有的图像分类数据集为基础进行实验研究，都有允许变异的能力。然而，由于测试覆盖指标的固有缺陷，这些包括对抗样本生成在内的的测试数据生成方法的可解释性也较低，已有数据集生成工作针对智能组件的覆盖性测试难以锁定真正失效原因和脆弱点，导致修复较为困难。同时目前工作缺乏对可解释性的智能组件覆盖性测试的研究，也容易受噪声和异常样本影响，导致做出错误决策，具有较大的不确定性。
-另一方面，第三方深度学习组件中存在的漏洞也可能作为智能组件脆弱点的突破口，从而威胁整个智能软件的安全性，导致智能软件出现中毒攻击、模型萃取、隐私泄露等安全威胁，然而，目前工作主要集中于单组件的脆弱性及其测试数据集生成，而对多组件、第三方智能组件以及组件间的交互影响研究较少。
-
-
-
-
-
+{\kaishu 测试覆盖指标是衡量测试集对深度学习模型测试充分性的标尺，是深度学习测试
+的重要研究问题之一。现有测试覆盖指标主要聚焦于对神经网络模型的神经元结构的覆盖研
+究，缺少对高层次语义表示覆盖的研究，因此缺乏可解释性。另一方面，现有指标伸缩性较
+差，其计算时间和指标有效性难以应对实际大规模模型。本项目拟提出基于知识萃取的可解
+释测试覆盖指标，将知识蒸馏和知识回顾应用于神经网络模型测试，从而提升测试指标的伸
+缩性和可解释性。}
 
 
-\begin{table}[t]
+\subsubsection{测试数据生成方法}
+
+为提高深度学习模型的可靠性，使用足够的测试输入对其一般行为和各种边界条件下的行为
+进行充分测试是十分必要的。在对深度学习模型的测试中，如何生成更具代表性的和更容易
+暴露模型错误行为的测试数据已成为深度学习测试的一个研究重点。如
+\cref{tab:testingDataGen}所示，现有测试数据生成方法可分为以下三类：
+
+\begin{table}[htp]
+	\renewcommand\arraystretch{1.5}
 	\small
 	\centering
 	\caption{深度学习模型测试数据生成方法总结}
@@ -111,21 +115,63 @@
 	% \begin{tabular}{cp{5cm}p{2cm}cp{2cm}}
 	\begin{tabular}{cccccc}
 		\toprule
-		\textbf{序号} & \textbf{算法思想} & \textbf{测试目标}               & \textbf{测试数据} & \textbf{可解释性} & \textbf{文献号}             \\
+		\textbf{序号} & \textbf{算法思想} & \textbf{评价方法}               & \textbf{测试数据} & \textbf{文献号}             \\
 		\midrule
-		1             & 模糊测试          & \makecell{NBC, NC, L2 Distance,                                                                       \\ SNC, KMNC, INC} & 图像，文本 & 无 & \cite{Odena2019TensorFuzz,Guo2018DLFuzz,xie2019coverage} \\
-		2             & Concolic测试      & NC, MC/DC                       & 图像              & 无                & \cite{Sun2018Concolic}      \\
-		3             & 符号执行          & 无                              & 代码              & 无                & \cite{Gopinath2018Symbolic} \\
-		4             & 对抗样本          & \makecell{MCTS, Confidence,                                                                           \\Accuracy, Distortion, NC} & 图像 & 无 & \cite{Xiao2018Spatially,Wicker2018FeatureGuided,He2018Decision} \\
+		1             & 模糊测试          & 测试覆盖率、效率 & 图像、文本 & \cite{Odena2019TensorFuzz}\cite{Guo2018DLFuzz}\cite{xie2019coverage} \\
+		2             & 符号执行          & 测试覆盖率、像素重要性等                              & 图像、代码              & \cite{Gopinath2018Symbolic}\cite{Sun2018Concolic} \\
+		3             & 对抗样本          & 准确率、失真度、人类对比评价等 & 图像 & \cite{Xiao2018Spatially}\cite{Wicker2018FeatureGuided}\cite{He2018Decision} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
 
+\begin{itemize}
+	\item \textbf{基于模糊测试的思想}，通过随机或者特定规则将种子输入进行变换，
+	生成新的测试数据，观察模型在边界条件下是否会发生错误。Guo等人
+	~\cite{Guo2018DLFuzz}首次提出神经网络模糊测试框架DLFuzz，用于指导生成暴露模
+	型错误行为的测试数据。Odena等人~\cite{Odena2019TensorFuzz}利用测试覆盖指标指
+	导模糊测试。在此基础上，Xie等人~\cite{xie2019coverage}提出了一个自动化模糊测
+	试框架DeepHunter，使用6种测试覆盖指标实现了在深度学习模型开发和部署两个阶段
+	的自动化测试。
+
+	\item \textbf{基于符号执行}，Sun等人~\cite{Sun2018Concolic}在测试覆盖指标的
+	基础上提出了DeepConcolic，结合具体执行和符号分析，提高神经网络的测试覆盖
+	率。Gopinath等人~\cite{Gopinath2018Symbolic}提出了一种轻量级符号执行技术并将
+	其应用于图像分类算法的测试，以解决重要像素的识别以及创建1像素和2像素攻击等关
+	键问题。
+
+	\item \textbf{基于对抗样本的方法}，通过向原始样本添加微小扰动的方式产生对抗
+	      样本，使深度学习模型做出错误预测。在白盒攻击方面，Xiao等人
+	      ~\cite{Xiao2018Spatially}提出了基于空间变换的图像对抗样本生成方法。He
+	      等人~\cite{He2018Decision}提出了一种针对区域分类的对抗样本生成方法。在
+	      黑盒攻击方面，Wicker等人~\cite{Wicker2018FeatureGuided}提出一种特征引
+	      导的鲁棒性测试方法，通过双方博弈游戏的方式确定特征和操作像素点，并利用
+	      蒙特卡罗树搜索算法逐步探索博弈状态空间来生成对抗性样本。
+\end{itemize}
+
+
+{\kaishu 在深度学习模型部署前找到容易导致模型错误行为的输入数据是必要的。现有测
+试数据生成方法主要分为两类：一类受传统软件测试方法启发，在输入种子数据的基础上允
+许在语义大致不变的前提下对输入进行变异，以提高覆盖率为导向生成新数据；另一类基于
+对抗样本，通过基于梯度等方法搜索导致模型错误预测的最小扰动，生成新测试数据。然
+而，由于神经网络的黑盒特性，这两类测试数据生成方法虽然能够暴露模型错误行为，但测
+试结果缺乏可解释性，测试人员很难掌握测试成功或失效的原因，因此除扩充训练集外，对
+模型修复的作用较少。本项目拟提出具有可解释性的深度学习模型测试框架，从模型和测试
+数据两个角度提高深度学习测试的可解释性。}
 
 
 
-\subsubsection{测试数据集优选方法}
+
+
+
+
+
+
+
+
+
+
+\subsubsection{测试数据选择方法}
 
 现有对深度学习框架测试数据集优选方面的测试方法研究主要有基于变异测试、基于边界聚类以及基于神经元状态统计的测试数据优选方法，如\cref{tab:testingDataPri}所示。
 
@@ -152,17 +198,18 @@
 
 
 \begin{table}[t]
+	\renewcommand\arraystretch{1.5}
 	\small
 	\centering
 	\caption{深度学习模型测试数据集优选方法总结}
 	\label{tab:testingDataPri}
-	\begin{tabular}{ccccc}
+	\begin{tabular}{cccc}
 		\toprule
-		\textbf{序号} & \textbf{算法思想}  & \textbf{测试对象}      & \textbf{可解释性} & \textbf{文献号}                                                    \\
+		\textbf{序号} & \textbf{算法思想}  & \textbf{测试对象} & \textbf{文献号}                                                    \\
 		\midrule
-		1             & 基于变异测试       & 图像分类               & 无                & \cite{Wang2021Prioritizing,Ma2018DeepMutation}                     \\
-		2             & 基于神经元状态统计 & 图像分类，自然语言识别 & 无                & \cite{Liu2022DeepState,Byun2019Input,Gao2022Adaptive}              \\
-		3             & 基于数据分布       & 图像分类，自然语言识别 & 无                & \cite{Shen2020MultipleBoundary,Feng2020DeepGini,Hu2022AnEmpirical} \\
+		1             & 基于变异测试       & 图像分类              & \cite{Wang2021Prioritizing}\cite{Ma2018DeepMutation}                     \\
+		2             & 基于神经元状态统计 & 图像分类、自然语言识别  & \cite{Liu2022DeepState}\cite{Byun2019Input}\cite{Gao2022Adaptive}              \\
+		3             & 基于数据分布       & 图像分类、自然语言识别  & \cite{Shen2020MultipleBoundary}\cite{Feng2020DeepGini}\cite{Hu2022AnEmpirical} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
